@@ -116,10 +116,16 @@ const Login = () => {
                     </div>
 
                     <div className="flex items-center justify-end mt-4">
-                        <Link
+                        {/* <Link
                             href="/forgot-password"
                             className="underline text-sm text-gray-600 hover:text-gray-900">
                             Forgot your password?
+                        </Link> */}
+
+                        <Link
+                            href="/register"
+                            className="underline text-sm text-gray-600 hover:text-gray-900">
+                            Sign Up!
                         </Link>
 
                         <Button className="ml-3">Login</Button>
