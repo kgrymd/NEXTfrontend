@@ -67,6 +67,7 @@ const Navigation = ({ user }) => {
                             <DropdownButton onClick={logout}>
                                 Logout
                             </DropdownButton>
+
                         </Dropdown>
                     </div>
 
@@ -147,6 +148,13 @@ const Navigation = ({ user }) => {
                             {/* Authentication */}
                             <ResponsiveNavButton onClick={logout}>
                                 Logout
+                            </ResponsiveNavButton>
+                            <ResponsiveNavButton>
+                                <Link
+                                    href="/me"
+                                    active={router.pathname === '/me'}>
+                                    Profile
+                                </Link>
                             </ResponsiveNavButton>
                         </div>
                     </div>

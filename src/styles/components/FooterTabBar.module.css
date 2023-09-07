@@ -1,0 +1,29 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4rem;
+    background-color: white;
+}
+
+.footer.push {
+    height: 4rem;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    height: 4rem;
+}
+
+.tab {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    border-radius: 20%;
+}
