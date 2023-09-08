@@ -1,7 +1,19 @@
+import FooterTabBar from '@/components/FooterTabBar'
 import AppLayout from '@/components/Layouts/AppLayout'
 import Head from 'next/head'
+import useSWR from "swr";
 
 const Dashboard = () => {
+    const { data: userData, error, mutate } = useSWR('/api/me', () =>
+        axios
+            .get('/api/me')
+            .then(res => res.data)
+            .catch(error => {
+                if (error.response.status !== 409) throw error
+
+                router.push('/verify-email')
+            }),
+    );
     return (
         <AppLayout
             header={
@@ -22,6 +34,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            <FooterTabBar user={userData} />
         </AppLayout>
     )
 }

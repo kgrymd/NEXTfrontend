@@ -107,31 +107,27 @@ const Navigation = ({ user }) => {
             {/* Responsive Navigation Menu */}
             {open && (
                 <div className="block sm:hidden">
-                    <div className="pt-2 pb-3 space-y-1">
+                    {/* <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
                             href="/dashboard"
                             active={router.pathname === '/dashboard'}>
                             Dashboard
                         </ResponsiveNavLink>
-                    </div>
+                    </div> */}
 
                     {/* Responsive Settings Options */}
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="flex items-center px-4">
                             <div className="flex-shrink-0">
-                                <svg
-                                    className="h-10 w-10 fill-current text-gray-400"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                                    />
-                                </svg>
+                                <img
+                                    src={
+                                        user?.icon_path
+                                            ? `${process.env.NEXT_PUBLIC_AWS_URL}${user.icon_path}`
+                                            : 'icon.png'
+                                    }
+                                    alt="icon"
+                                    className="h-10 w-10 rounded-full border border-gray-400"
+                                />
                             </div>
 
                             <div className="ml-3">
@@ -151,8 +147,8 @@ const Navigation = ({ user }) => {
                             </ResponsiveNavButton>
                             <ResponsiveNavButton>
                                 <Link
-                                    href="/me"
-                                    active={router.pathname === '/me'}>
+                                    href="/profile/me"
+                                    active={router.pathname === '/profile/me'}>
                                     Profile
                                 </Link>
                             </ResponsiveNavButton>

@@ -11,7 +11,7 @@ const FooterTabBar = ({ user }) => {
             <div className={styles.container}>
                 {/* Navigation Links */}
                 <div className={styles.tab}>
-                    <NavLink href="/" active={router.pathname === '/'}>
+                    <NavLink href="/dashboard" active={router.pathname === '/dashboard'}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -29,8 +29,8 @@ const FooterTabBar = ({ user }) => {
                 </div>
                 <div className={styles.tab}>
                     <NavLink
-                        href="/"
-                        active={router.pathname === '/'}>
+                        href="/dashboard"
+                        active={router.pathname === '/dashboard'}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -52,8 +52,8 @@ const FooterTabBar = ({ user }) => {
                 </div>
                 <div className={styles.tab}>
                     <NavLink
-                        href="/"
-                        active={router.pathname === '/'}>
+                        href="/dashboard"
+                        active={router.pathname === '/dashboard'}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -71,8 +71,8 @@ const FooterTabBar = ({ user }) => {
                 </div>
                 <div className={styles.tab}>
                     <NavLink
-                        href="/"
-                        active={router.pathname === '/'}>
+                        href="/dashboard"
+                        active={router.pathname === '/dashboard'}>
                         <svg xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
@@ -89,8 +89,8 @@ const FooterTabBar = ({ user }) => {
                 </div>
                 <div className={styles.tab}>
                     <NavLink
-                        href="/me"
-                        active={router.pathname === '/me'}>
+                        href="/profile/me"
+                        active={router.pathname === '/profile/me'}>
                         {user?.icon_path ? (
                             <Image
                                 src={user.icon_path}
