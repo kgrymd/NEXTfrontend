@@ -57,7 +57,6 @@ export default function Home() {
                                     width="48"
                                     trigger={
                                         <button className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
-                                            {/* <div>{user?.name}</div> */}
 
                                             <div className="ml-1">
                                                 <svg
@@ -74,11 +73,15 @@ export default function Home() {
                                         </button>
                                     }>
                                     {/* Authentication */}
-                                    <DropdownButton onClick={login}>
-                                        Login
+                                    <DropdownButton>
+                                        <Link href="/login">
+                                            Login
+                                        </Link>
                                     </DropdownButton>
-                                    <DropdownButton onClick={register}>
-                                        Register
+                                    <DropdownButton>
+                                        <Link href="/register">
+                                            Register
+                                        </Link>
                                     </DropdownButton>
 
                                 </Dropdown>
@@ -127,11 +130,15 @@ export default function Home() {
 
                                     <div className="mt-3 space-y-1">
                                         {/* Authentication */}
-                                        <ResponsiveNavButton onClick={login}>
-                                            Login
+                                        <ResponsiveNavButton>
+                                            <Link href="/login">
+                                                Login
+                                            </Link>
                                         </ResponsiveNavButton>
-                                        <ResponsiveNavButton onClick={register}>
-                                            Register
+                                        <ResponsiveNavButton>
+                                            <Link href="/register">
+                                                Register
+                                            </Link>
                                         </ResponsiveNavButton>
                                     </div>
                                 </div>
