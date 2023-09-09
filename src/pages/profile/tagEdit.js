@@ -149,7 +149,7 @@ function EditTagsWithSearchAndSave() {
                         <div className=''>
                             <h3 className="font-bold">自分のタグ:</h3>
                             {userTags.map((tag) => (
-                                <span key={tag.id} onClick={() => handleTagRemoval(tag.id)} className="inline-block bg-blue-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                                <span key={tag.id} onClick={() => handleTagRemoval(tag.id)} className="inline-block bg-blue-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 cursor-pointer">
                                     {tag.name} ×
 
                                 </span>
@@ -162,7 +162,7 @@ function EditTagsWithSearchAndSave() {
                         <div className={`${styles.flexContainer} ${styles.gap}`}>
                             <h3 className="font-bold">タグを選択:</h3>
                             {filteredTags.map((tag) => (
-                                <span key={tag.id} onClick={() => handleTagAddition(tag)} className="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+                                <span key={tag.id} onClick={() => handleTagAddition(tag)} className="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 cursor-pointer">
                                     {tag.name}
                                 </span>
                             )) ?? <p className="text-gray-500">No tags available</p>}
