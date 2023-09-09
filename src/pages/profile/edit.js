@@ -109,7 +109,7 @@ const edit = () => {
                 <div className={styles.container}>
                     <div className={styles.content}>
                         <form className={styles.form}>
-                            <div className={styles.iconBox}>
+                            <div className={styles.iconBox} >
                                 <input
                                     id="icon"
                                     type="file"
@@ -140,7 +140,7 @@ const edit = () => {
                                             </button>
                                         </>
                                     ) : user.icon_path ? (
-                                        <label htmlFor="icon">
+                                        <label htmlFor="icon" className="cursor-pointer">
                                             <Image
                                                 src={user.icon_path}
                                                 alt="icon"
@@ -148,9 +148,9 @@ const edit = () => {
                                             />
                                         </label>
                                     ) : (
-                                        <label htmlFor="icon">
+                                        <label htmlFor="icon" className="cursor-pointer">
                                             <img
-                                                src="../icon.png"
+                                                src="/bakachinga.jpg"
                                                 alt="icon"
                                                 className="h-20 w-20 rounded-full border border-gray-400"
                                             />
