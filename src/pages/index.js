@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useAuth } from '@/hooks/auth'
-import AppLayout from '@/components/Layouts/AppLayout'
 import { useState } from 'react'
 import ApplicationLogo from '@/components/ApplicationLogo'
 import NavLink from '@/components/NavLink'
@@ -10,13 +8,9 @@ import { useRouter } from 'next/router'
 import Dropdown from '@/components/Dropdown'
 import { DropdownButton } from '@/components/DropdownLink'
 import { ResponsiveNavButton } from '@/components/ResponsiveNavLink'
-import Register from './register'
 export default function Home() {
-    // const { user } = useAuth({ middleware: 'guest' })
 
     const router = useRouter()
-
-    const { login, register } = useAuth()
 
     // ドロップダウンの開閉状態
     const [open, setOpen] = useState(false)

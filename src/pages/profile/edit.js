@@ -97,8 +97,8 @@ const edit = () => {
         fetchPrefectures();
     }, []);
 
-    console.log(formData)
-    console.log(selectedPrefecture)
+    // console.log(formData)
+    // console.log(selectedPrefecture)
 
     return (
         <Layout>
@@ -136,7 +136,7 @@ const edit = () => {
                                             <button
                                                 className={styles.clearButton}
                                                 onClick={iconClear}>
-                                                clear
+                                                取消
                                             </button>
                                         </>
                                     ) : user.icon_path ? (
@@ -150,7 +150,7 @@ const edit = () => {
                                     ) : (
                                         <label htmlFor="icon" className="cursor-pointer">
                                             <img
-                                                src="/bakachinga.jpg"
+                                                src="/user_circle_icon.svg"
                                                 alt="icon"
                                                 className="h-20 w-20 rounded-full border border-gray-400"
                                             />
