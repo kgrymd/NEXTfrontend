@@ -89,19 +89,16 @@ function EditTagsWithSearchAndSave() {
                     tags: userTags.map((tag) => tag.id),
                 });
 
-                // 成功した場合の処理（任意）
+                // 成功した場合の処理
                 if (response.status === 200) {
                     setIsModified(false);
 
-                    // /profile/me へ遷移
                     window.location.href = '/profile/me'
                 } else {
-                    // エラーハンドリング
                     setMessage('エラーが発生しました。')
                 }
             }
         } catch (error) {
-            // エラーハンドリング
             console.log(
                 `エラーが発生しました。ステータスコード: ${error.response.status}`,
             )
