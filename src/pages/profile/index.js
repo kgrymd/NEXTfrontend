@@ -1,44 +1,30 @@
-import { useEffect } from "react";
-import AppLayout from "@/components/Layouts/AppLayout";
+import useSWR from "swr";
 import Head from "next/head";
 import Link from "next/link";
 import axios from "@/lib/axios";
-import Button from '@/components/Button'
+
+import AppLayout from "@/components/Layouts/AppLayout";
+import Button from '@/components/Button';
 import Image from "@/components/Image";
-import React from 'react'
-
-import useSWR from "swr";
 import FooterTabBar from "@/components/FooterTabBar";
+import TagDisplay from "@/components/TagDisplay";
 
 
 
 
-const Me = () => {
+const Profile = () => {
 
-    const { data: userData, error, mutate } = useSWR('/api/me', () =>
+    const { data: userData, error } = useSWR('/api/me', () =>
         axios
             .get('/api/me')
             .then(res => res.data)
-            .catch(error => {
-                if (error.response.status !== 409) throw error
-
-                router.push('/verify-email')
-            }),
     );
 
+    if (error) return <div>エラーが発生しました</div>;
 
-    useEffect(() => {
-        mutate();
-    }, []);
+
     return (
-        <AppLayout
-        // ↓スペースががも゛ったいだいっ!!!!ので一旦コメントアウト
-        // header={
-        //     <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-        //         Profile
-        //     </h2>
-        // }
-        >
+        <AppLayout>
             <Head>
                 <title>Profile</title>
             </Head>
@@ -63,11 +49,7 @@ const Me = () => {
 
                     <div className="flex flex-wrap gap-2">
                         <h3 className="font-bold">タグ:</h3>
-                        {userData?.tags?.map((tag) => (
-                            <span key={tag.id} className="inline-block bg-blue-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                                {tag.name}
-                            </span>
-                        )) ?? <p className="text-gray-500">タグを設定していません</p>}
+                        <TagDisplay tags={userData?.tags} tagColor="lime" message="" />
                     </div>
                 </>
             ) : (
@@ -76,11 +58,11 @@ const Me = () => {
 
 
 
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
                 <Link href={'/profile/tagEdit'}>
                     <Button type="button">タグを編集</Button>
                 </Link>
-            </div>
+            </div> */}
             <div className="flex justify-center">
                 <Link href={'/profile/edit'}>
                     <Button type="button">プロフィールを編集</Button>
@@ -92,4 +74,4 @@ const Me = () => {
     )
 }
 
-export default Me
+export default Profile

@@ -1,53 +1,93 @@
-import React from 'react'
-import styles from '@/styles/profileEdit.module.css'
+import { useState, useEffect } from 'react';
+import Head from 'next/head';
+import useSWR from 'swr';
 
-import Layout from '@/components/Layouts/Layout'
-import Header from '@/components/Header'
-import Head from 'next/head'
-import Image from '@/components/Image'
+// Styles
+import styles from '@/styles/profileEdit.module.css';
 
-import { useAuth } from '@/hooks/auth'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import axios from '@/lib/axios'
+// Libs
+import axios from '@/lib/axios';
 
-const edit = () => {
+// Components
+import Layout from '@/components/Layouts/Layout';
+import Header from '@/components/Header';
+import Image from '@/components/Image';
+import PrefectureSelect from '@/components/PrefectureSelect';
+import TagDisplay from '@/components/TagDisplay';
+import Button from '@/components/Button';
+import TagEditor from '@/components/TagEditor';
+
+// Hooks
+import { useAuth } from '@/hooks/auth';
+
+
+const Edit = () => {
     const { user } = useAuth({ middleware: 'auth' })
 
-
-    // APIから取得した都道府県データを格納するstateを追加
-    const [prefectures, setPrefectures] = useState([]);
-    const [selectedPrefecture, setSelectedPrefecture] = useState(null);
-
-
+    const [selectedPrefecture, setSelectedPrefecture] = useState(user?.prefecture_id || null);
+    // モーダル表示のためのState
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState({
         iconFile: '',
         age: '',
         name: '',
         email: '',
         introduction: '',
+        tags: [],
     })
 
-    const handleChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
+
+    const fetcher = url => axios.get(url).then(res => res.data).catch(error => {
+        throw error.response.data;
+    });
+
+
+    // const { data: userData = { tags: [] }, mutate, error: userError } = useSWR('/api/me', fetcher);　← = { tags: [] }いらんよな？たぶん何かしらの理由で一時的に必要だったのだろうが忘れた
+    const { data: userData, error: userError } = useSWR('/api/me', fetcher);
+    const { data: prefectures, error: prefectureError } = useSWR('/api/prefectures', fetcher);
+
+    if (userError) console.error('ユーザーデータの取得に失敗しました。:', userError);
+    if (prefectureError) console.error('prefecturesの取得に失敗しました。:', prefectureError);
+
+
+    // userDataが変更された時だけuserTagsを更新
+    useEffect(() => {
+        if (userData) {
+            setFormData(prev => ({ ...prev, tags: userData.tags }))
+        }
+    }, [userData]);
+
+
+    const handleChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const iconClear = e => {
         e.preventDefault()
         setFormData({ ...formData, iconFile: '' })
     }
 
+    // Todo: タグ編集をコンポーネント化してモーダルで編集できるようにしたから、disabledの設定をやめるか何とか別の方法でするか
+    const isSaveButtonDisabled = (formData) => {
+        return (
+            Object.values(formData).every(
+                value => value === '',
+            ) && (selectedPrefecture === user?.prefecture_id || !selectedPrefecture)
+                ? true
+                : false
+        )
+    }
+
+    // モーダルを開く関数
+    const openModal = () => {
+        setIsModalOpen(true);
+    }
+
+    // モーダルを閉じる関数
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
+
     const submit = async e => {
         e.preventDefault()
-        // 都道府県(selectedPrefectureに初期値を設定されるので意味がなくなる為保存buttonをdisabledで対応のみにする。
-        // if (
-        //     Object.values(formData).every(value => value === '') &&
-        //     !selectedPrefecture
-        // ) {
-        //     console.log('Please fill out the form');
-        //     return;
-        // }
-
 
         const data = new FormData()
         for (const [key, value] of Object.entries(formData)) {
@@ -61,6 +101,10 @@ const edit = () => {
             data.append('prefecture_id', selectedPrefecture);
         }
 
+        formData.tags.forEach((tag, index) => {
+            data.append(`tags[${index}]`, tag.id);
+        });
+
         try {
             const response = await axios.post('/api/my/data', data, {
                 headers: {
@@ -68,41 +112,23 @@ const edit = () => {
                     'X-HTTP-Method-Override': 'PATCH',
                 },
             })
-            console.log(response.status)
             if (response.status === 204) {
-                window.location.href = '/profile/me'
+                window.location.href = '/profile'
+                // alert('保存に成功しました！')
             } else {
                 setMessage('エラーが発生しました。')
             }
         } catch (error) {
-            if (error.response) {
-                console.log(
-                    `エラーが発生しました。ステータスコード: ${error.response.status}`,
-                )
-            }
+            console.error('保存に失敗しました。:', error);
         }
     }
-    // useEffectを使ってAPIから都道府県のデータを取得
-    useEffect(() => {
-        const fetchPrefectures = async () => {
-            try {
-                const response = await axios.get('/api/prefectures');
-                setPrefectures(response.data);
-                setSelectedPrefecture(user?.prefecture_id); // 初期値として設定
-            } catch (error) {
-                console.error('Failed to fetch prefectures:', error);
-            }
-        };
 
-        fetchPrefectures();
-    }, []);
-
-    // console.log(formData)
+    console.log(formData)
     // console.log(selectedPrefecture)
 
     return (
         <Layout>
-            <Header>
+            <Header backRoute={'/profile'}>
                 <Head>
                     <title>Profile Edit</title>
                 </Head>
@@ -216,35 +242,32 @@ const edit = () => {
                                 </div>
                             </div>
 
-                            <div className={styles.prefectureBox}>
-                                <label htmlFor="prefecture">都道府県</label>
-                                <div>
-                                    <select
-                                        id="prefecture"
-                                        name="prefecture"
-                                        value={selectedPrefecture}
-                                        onChange={e => setSelectedPrefecture(e.target.value)}
-                                    >
-                                        {/* <option value="">選択してください</option> */}
-                                        {prefectures.map(pref => (
-                                            <option key={pref.id} value={pref.id}>
-                                                {pref.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
+                            <PrefectureSelect
+                                selectedPrefecture={selectedPrefecture}
+                                setSelectedPrefecture={setSelectedPrefecture}
+                                prefectures={prefectures}
+                            />
+
+                            <div>
+                                <h3 className="font-bold">自分のタグ:</h3>
+                                <TagDisplay tags={formData.tags} tagColor="lime" message="タグを追加してください" />
+                            </div>
+                            <div className="flex justify-center">
+                                <Button type="button" onClick={openModal}>タグを編集</Button>
                             </div>
 
+                            {isModalOpen && (
+                                <div className={styles.modal}>
+                                    <div className={styles.modalContent}>
+                                        <TagEditor setFormData={setFormData} selectedTags={formData.tags} closeModal={closeModal} />
+                                        <button onClick={closeModal}>閉じる</button>
+                                    </div>
+                                </div>
+                            )}
 
                             <button
                                 className={styles.submitButton}
-                                disabled={
-                                    Object.values(formData).every(
-                                        value => value === '',
-                                    ) && !selectedPrefecture
-                                        ? true
-                                        : false
-                                }
+                                disabled={isSaveButtonDisabled(formData)}
                                 onClick={submit}>
                                 保存
                             </button>
@@ -257,4 +280,4 @@ const edit = () => {
     )
 }
 
-export default edit
+export default Edit

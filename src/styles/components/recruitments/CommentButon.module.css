@@ -1,0 +1,13 @@
+.commentButton {
+    /* padding: 10px 15px; */
+    /* background-color: #007bff; */
+    background-color: transparent;
+
+    /* color: white; */
+    /* border-radius: 5px; */
+    cursor: pointer;
+
+    position: absolute;
+    right: 30px;
+    bottom: 120px;
+}

@@ -2,7 +2,7 @@ import React from 'react'
 import styles from '@/styles/components/Header.module.css'
 import { useRouter } from 'next/router'
 
-const Header = ({ children }) => {
+const Header = ({ children, backRoute }) => {
     const router = useRouter()
     return (
         <>
@@ -10,14 +10,15 @@ const Header = ({ children }) => {
                 <div
                     className="flex justify-center cursor-pointer h-16 items-center ml-4 w-12"
                     onClick={() => {
-                        router.back()
+                        backRoute ? router.push(backRoute) : router.back()
                     }}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
-                        stroke="currentColor"
+                        // stroke="currentColor"
+                        stroke="#84cc16"
                         className={`w-6 h-6`}>
                         <path
                             strokeLinecap="round"
@@ -26,7 +27,6 @@ const Header = ({ children }) => {
                         />
                     </svg>
                 </div>
-                {/* Page Content */}
             </div>
             <main>{children}</main>
         </>
