@@ -8,7 +8,11 @@ import { useRouter } from 'next/router'
 import Dropdown from '@/components/Dropdown'
 import { DropdownButton } from '@/components/DropdownLink'
 import { ResponsiveNavButton } from '@/components/ResponsiveNavLink'
+import { useAuth } from '@/hooks/auth'
 export default function Home() {
+
+    // loginしていたらdashboardに遷移
+    useAuth({ middleware: 'guest', redirectIfAuthenticated: '/dashboard' })
 
     const router = useRouter()
 

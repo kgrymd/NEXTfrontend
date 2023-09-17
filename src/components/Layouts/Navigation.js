@@ -9,6 +9,8 @@ import { DropdownButton } from '@/components/DropdownLink'
 import { useAuth } from '@/hooks/auth'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import styles from '@/styles/components/Navigation.module.css'
+
 
 const Navigation = ({ user }) => {
     const router = useRouter()
@@ -18,14 +20,15 @@ const Navigation = ({ user }) => {
     const [open, setOpen] = useState(false)
 
     return (
-        <nav className="bg-white border-b border-gray-100">
+        // <nav className={styles.nav}>
+        <nav className={`${styles.nav} border-b border-gray-100`}>
             {/* Primary Navigation Menu */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex">
                         {/* Logo */}
                         <div className="flex-shrink-0 flex items-center">
-                            <Link href="/dashboard">
+                            <Link href="/">
                                 <ApplicationLogo className="block h-10 w-auto fill-current text-gray-600" />
                             </Link>
                         </div>
@@ -38,6 +41,20 @@ const Navigation = ({ user }) => {
                                 Dashboard
                             </NavLink>
                         </div>
+                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <NavLink
+                                href="/recruitments"
+                                active={router.pathname === '/recruitments'}>
+                                Recruitments
+                            </NavLink>
+                        </div>
+                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <NavLink
+                                href="/profile"
+                                active={router.pathname === '/profile'}>
+                                Profile
+                            </NavLink>
+                        </div>
                     </div>
 
                     {/* Settings Dropdown */}
@@ -46,7 +63,7 @@ const Navigation = ({ user }) => {
                             align="right"
                             width="48"
                             trigger={
-                                <button className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
+                                <button className="flex items-center text-sm font-medium text-gray-300 hover:text-gray-700 focus:outline-none transition duration-150 ease-in-out">
                                     <div>{user?.name}</div>
 
                                     <div className="ml-1">
@@ -123,7 +140,7 @@ const Navigation = ({ user }) => {
                                     src={
                                         user?.icon_path
                                             ? `${process.env.NEXT_PUBLIC_AWS_URL}${user.icon_path}`
-                                            : 'icon.png'
+                                            : '/user_circle_icon.svg'
                                     }
                                     alt="icon"
                                     className="h-10 w-10 rounded-full border border-gray-400"
@@ -131,10 +148,10 @@ const Navigation = ({ user }) => {
                             </div>
 
                             <div className="ml-3">
-                                <div className="font-medium text-base text-gray-800">
+                                <div className="font-medium text-base text-gray-300">
                                     {user?.name}
                                 </div>
-                                <div className="font-medium text-sm text-gray-500">
+                                <div className="font-medium text-sm text-gray-400">
                                     {user?.email}
                                 </div>
                             </div>
@@ -147,8 +164,8 @@ const Navigation = ({ user }) => {
                             </ResponsiveNavButton>
                             <ResponsiveNavButton>
                                 <Link
-                                    href="/profile/me"
-                                    active={router.pathname === '/profile/me'}>
+                                    href="/profile"
+                                    active={router.pathname === '/profile'}>
                                     Profile
                                 </Link>
                             </ResponsiveNavButton>
