@@ -169,6 +169,13 @@ const Navigation = ({ user }) => {
                                     Profile
                                 </Link>
                             </ResponsiveNavButton>
+                            <ResponsiveNavButton>
+                                <Link
+                                    href="/my/recruitments"
+                                    active={router.pathname === '/my/recruitments'}>
+                                    Recruitments
+                                </Link>
+                            </ResponsiveNavButton>
                         </div>
                     </div>
                 </div>
