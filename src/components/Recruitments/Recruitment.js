@@ -84,26 +84,52 @@ const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelected
                 </div>
                 <div className={styles.iconContainer}>
                     <p>参加者:</p>
-                    <Link href={'/profile'}>
-                        <div key={recruitment.user.id}>
-                            <Image
-                                src={recruitment.user.icon_path}
-                                alt={recruitment.user.name}
-                                style={styles.icon}
-                            />
-                            <span className='text-xs'>{recruitment.user.name}</span>
-                        </div>
-                    </Link>
+                    {userData?.id === recruitment.user.id ?
+                        <Link href={'/profile'}>
+                            <div key={recruitment.user.id}>
+                                <Image
+                                    src={recruitment.user.icon_path}
+                                    alt={recruitment.user.name}
+                                    style={styles.icon}
+                                />
+                                <span className='text-xs'>{recruitment.user.name}</span>
+                            </div>
+                        </Link>
+                        :
+                        <Link href={`/profile/${recruitment.user.id}`}>
+                            <div key={recruitment.user.id}>
+                                <Image
+                                    src={recruitment.user.icon_path}
+                                    alt={recruitment.user.name}
+                                    style={styles.icon}
+                                />
+                                <span className='text-xs'>{recruitment.user.name}</span>
+                            </div>
+                        </Link>
+                    }
                     {recruitment.approvedUsers.map((user) => (
                         //募集作成者以外の募集参加者を表示
                         recruitment.user.id !== user.id ? (
-                            <div key={user.id}>
-                                <Image //Todo: ProfileImageコンポーネントを作成し、クリックしたらそのユーザーのプロフィール画面に行くようにする
-                                    src={user.icon_path}
-                                    alt={user.name}
-                                    style={styles.icon}
-                                />
-                            </div>
+                            userData.id === user.id ?
+                                <Link href={'/profile'}>
+                                    <div key={user.id}>
+                                        <Image //Todo: ProfileImageコンポーネントを作成し、クリックしたらそのユーザーのプロフィール画面に行くようにする
+                                            src={user.icon_path}
+                                            alt={user.name}
+                                            style={styles.icon}
+                                        />
+                                    </div>
+                                </Link>
+                                :
+                                <Link href={`/profile/${user.id}`}>
+                                    <div key={user.id}>
+                                        <Image //Todo: ProfileImageコンポーネントを作成し、クリックしたらそのユーザーのプロフィール画面に行くようにする
+                                            src={user.icon_path}
+                                            alt={user.name}
+                                            style={styles.icon}
+                                        />
+                                    </div>
+                                </Link>
                         ) : null
                     ))}
                 </div>

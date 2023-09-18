@@ -9,14 +9,18 @@ import Image from "@/components/Image";
 import FooterTabBar from "@/components/FooterTabBar";
 import TagDisplay from "@/components/TagDisplay";
 
+import { useRouter } from 'next/router';
 
 
+const Profile = () => {
 
-const UserProfile = () => {
+    // useRouterフックを使用してルーターオブジェクトを取得
+    const router = useRouter();
+    const { id } = router.query;  // パスからidを取得
 
-    const { data: userData, error } = useSWR('/api/me', () =>
+    const { data: userData, error } = useSWR(id ? `/api/users/${id}` : null, () =>
         axios
-            .get('/api/me')
+            .get(`/api/users/${id}`)
             .then(res => res.data)
     );
 
@@ -63,15 +67,15 @@ const UserProfile = () => {
                     <Button type="button">タグを編集</Button>
                 </Link>
             </div> */}
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
                 <Link href={'/profile/edit'}>
                     <Button type="button">プロフィールを編集</Button>
                 </Link>
-            </div>
+            </div> */}
 
             <FooterTabBar user={userData} />
         </AppLayout>
     )
 }
 
-export default UserProfile
+export default Profile

@@ -37,8 +37,7 @@ function MyRecruitmentList() {
         <AppLayout
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    {/* Todo: 参加済みの募集一覧に変える */}
-                    参加申請した募集一覧
+                    参加済みの募集一覧
                 </h2>
             }
         >
@@ -50,14 +49,16 @@ function MyRecruitmentList() {
 
                     <ul>
                         {recruitments.map((recruitment) => (
-                            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                                {/* ダイナミックルートへのリンクを設定 */}
-                                <Link href={`/recruitment/${recruitment.recruitment_id}`}>
-                                    <li key={recruitment.recruitment_id} className="p-6 bg-white border-b border-gray-200">
-                                        {recruitment.recruitment_title}
-                                    </li>
-                                </Link>
-                            </div>
+                            recruitment.is_approved === 1 ?
+                                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                    {/* ダイナミックルートへのリンクを設定 */}
+                                    <Link href={`/recruitment/${recruitment.recruitment_id}`}>
+                                        <li key={recruitment.recruitment_id} className="p-6 bg-white border-b border-gray-200">
+                                            {recruitment.recruitment_title}
+                                        </li>
+                                    </Link>
+                                </div>
+                                : null
                         ))}
                     </ul>
                 </div>
