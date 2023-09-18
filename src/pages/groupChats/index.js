@@ -23,21 +23,21 @@ function GroupChats() {
         // APIからユーザーが参加している募集一覧を取得
         async function fetchRecruitments() {
             try {
-                const response = await axios.get('/api/my/participations');
+                const response = await axios.get('/api/my/participations'); //Todo: エンドポイントを承認済み募集に変える
                 setRecruitments(response.data);
             } catch (error) {
-                console.error("Error fetching the recruitments data:", error);
+                console.error("Error fetching the recruitments data:", error); //Todo:
             }
         }
 
         fetchRecruitments();
-    }, []); // この空の依存配列により、このuseEffectはコンポーネントがマウントされたときに1回だけ実行されます
+    }, []);
 
     return (
         <AppLayout
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    参加している募集一覧
+                    GroupChats
                 </h2>
             }
         >
@@ -50,14 +50,16 @@ function GroupChats() {
 
                     <ul>
                         {recruitments.map((recruitment) => (
-                            <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                                {/* ダイナミックルートへのリンクを設定 */}
-                                <Link href={`/recruitment/${recruitment.recruitment_id}`}>
-                                    <li key={recruitment.recruitment_id} className="p-6 bg-white border-b border-gray-200">
-                                        {recruitment.recruitment_title}
-                                    </li>
-                                </Link>
-                            </div>
+                            recruitment.is_approved === 1 ?
+                                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                    {/* ダイナミックルートへのリンクを設定 */}
+                                    <Link href={`/recruitment/${recruitment.recruitment_id}`}>
+                                        <li key={recruitment.recruitment_id} className="p-6 bg-white border-b border-gray-200">
+                                            {recruitment.recruitment_title}
+                                        </li>
+                                    </Link>
+                                </div>
+                                : null
                         ))}
                     </ul>
                 </div>
