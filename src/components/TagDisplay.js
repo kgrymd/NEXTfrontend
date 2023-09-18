@@ -31,8 +31,8 @@ function TagDisplay({ tags, onTagClick, tagColor, message }) {
                         tagColor === "lime"
                             ?
                             tags.map(tag => (
-                                // <span key={tag.id} onClick={() => onTagClick(tag)} className={`inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 cursor-pointer`} >
-                                <span key={tag.id} className={`inline-block bg-${tagColor}-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 cursor-pointer`} >
+                                // <span key={tag.id} className={`inline-block bg-${tagColor}-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 cursor-pointer`} >
+                                <span key={tag.id} className={`inline-block bg-lime-500 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 cursor-pointer`} >
                                     {tag.name}
                                 </span >
                             ))

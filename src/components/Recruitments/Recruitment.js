@@ -74,7 +74,7 @@ const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelected
 
                     </a>
                 </div>
-                <p>場所: {recruitment.prefecture.name}</p>
+                <p>場所: {recruitment.prefecture?.name}</p>
                 <p>年齢: {recruitment.age_from} ~ {recruitment.age_to}歳</p>
                 <p>募集人数: {recruitment.min_people} ~ {recruitment.max_people}人</p>
                 <p>期間: {recruitment.start_date} ~ {recruitment.end_date}</p>

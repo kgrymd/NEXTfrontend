@@ -9,7 +9,7 @@ import AppLayout from '@/components/Layouts/AppLayout';
 import FooterTabBar from '@/components/FooterTabBar';
 import Head from 'next/head';
 
-function GroupChats() {
+function MyRecruitmentList() {
     const [recruitments, setRecruitments] = useState([]);
     // const { user } = useAuth({ middleware: 'auth' });
 
@@ -37,15 +37,15 @@ function GroupChats() {
         <AppLayout
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    参加している募集一覧
+                    {/* Todo: 参加済みの募集一覧に変える */}
+                    参加申請した募集一覧
                 </h2>
             }
         >
             <Head>
-                <title>GroupChats</title>
+                <title>MyRecruitments</title>
             </Head>
             <div className="py-12">
-                {/* <h1>参加している募集一覧</h1> */}
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
                     <ul>
@@ -68,5 +68,4 @@ function GroupChats() {
 }
 
 
-
-export default GroupChats;
+export default MyRecruitmentList;

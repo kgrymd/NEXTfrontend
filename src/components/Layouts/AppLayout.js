@@ -6,12 +6,16 @@ const AppLayout = ({ header, children }) => {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            <Navigation user={user} />
+            {/* <Navigation user={user} /> */}
+            <div className="fixed top-0 left-0 right-0 z-10">
+                <Navigation user={user} />
+            </div>
 
             {/* Page Heading */}
             {/* headerがpropsに渡されたら表示。いらないpageはpropsで渡されないので表示しない。 */}
+            {/* <div className="mt-12"></div> */}
             {header &&
-                <header className="bg-white shadow">
+                <header className="bg-white shadow mt-16 fixed top-0 left-0 right-0 z-10">
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {header}
                     </div>
@@ -19,7 +23,7 @@ const AppLayout = ({ header, children }) => {
             }
 
             {/* Page Content */}
-            <main>{children}</main>
+            <main className='mt-24'>{children}</main>
         </div>
     )
 }
