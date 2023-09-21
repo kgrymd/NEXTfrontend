@@ -3,7 +3,7 @@ import styles from '@/styles/components/recruitments/JoinButton.module.css'
 import axios from '@/lib/axios'
 
 
-const JoinButton = ({ userData, recruitment, setSelectedRecruitment, toast }) => {
+const JoinButton = ({ userData, recruitment, setSelectedRecruitment, toast, mutate }) => {
 
     // 募集に参加するための関数
     const joinRecruitment = async (recruitment) => {
@@ -13,19 +13,20 @@ const JoinButton = ({ userData, recruitment, setSelectedRecruitment, toast }) =>
             const response = await axios.post('/api/participants', {
                 user_id: userData.id,
                 recruitment_id: recruitment.id,
-                is_approved: 0
+                is_approved: 1 //承認制にする場合は0(一旦なしで)
             });
             if (response.status === 201) {
                 // console.log('募集に参加しました！');
-                toast.success('参加申請をしました！承諾をお待ちください！');
+                toast.success('募集に参加しました！');
             } else {
                 console.log('参加に失敗しました。もう一度試してください。');
             }
         } catch (error) {
             console.error("Failed to join the recruitment:", error);
             // toast.error('参加に失敗しました。もう一度試してください。');
-            toast.error('すでに参加申請をしています！承諾をお待ちください！');
+            toast.error('すでに参加しています！');
         }
+        mutate()
     }
 
 
@@ -33,10 +34,12 @@ const JoinButton = ({ userData, recruitment, setSelectedRecruitment, toast }) =>
     return (
         <button className={styles.joinButton} onClick={() => joinRecruitment(recruitment)}>
             <img
-                src="/join_icon.png"
+                src="/join3.png"
                 alt="join_icon"
+                width={80}
+                height={80}
             />
-            <span>join!</span>
+            {/* <span>join!</span> */}
         </button>
     )
 }

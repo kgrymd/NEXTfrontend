@@ -95,6 +95,25 @@
     ;
 }
 
+
+
+.search {
+    width: 10%;
+    height: 6rem;
+    position: fixed;
+    top: 3rem;
+    /* left: 0; */
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    /* background-color: rgba(243, 244, 246); */
+    /* border-bottom: 1px solid gray; */
+    z-index: 30;
+}
+
+
+
 .card {
     position: relative;
     background-color: #fff;
