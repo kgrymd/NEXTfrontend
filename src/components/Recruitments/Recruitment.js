@@ -15,7 +15,7 @@ import "slick-carousel/slick/slick-theme.css";
 import YouTube from 'react-youtube';
 import TagDisplay from '../TagDisplay'
 
-const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelectedRecruitment, toast }) => {
+const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelectedRecruitment, toast, mutate }) => {
 
     // 各募集のいいね状態をトラックするためのstate
     const [liked, setLiked] = useState(false);
@@ -40,9 +40,18 @@ const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelected
 
 
         <div key={recruitment.id} className={styles.card}>
-            <div className={styles.info}>
+
+            <Link href={`/recruitments/${recruitment.id}`}>
+                <div className={styles.info}>
+                    <h2>{recruitment.title}</h2>
+                </div>
+
+            </Link>
+
+
+            {/* <div className={styles.info}>
                 <h2>{recruitment.title}</h2>
-            </div>
+            </div> */}
             {/* {recruitments && ( */}
             {recruitment && (
                 <Slider {...sliderSettings} className={styles.slider}>
@@ -77,7 +86,7 @@ const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelected
                 <p>場所: {recruitment.prefecture?.name}</p>
                 <p>年齢: {recruitment.age_from} ~ {recruitment.age_to}歳</p>
                 <p>募集人数: {recruitment.min_people} ~ {recruitment.max_people}人</p>
-                <p>期間: {recruitment.start_date} ~ {recruitment.end_date}</p>
+                <p>募集期間: {recruitment.start_date} ~ {recruitment.end_date}</p>
 
                 <div className="flex flex-wrap gap-2">
                     <TagDisplay tags={recruitment?.tags} tagColor="lime" message="タグ未設定" />
@@ -85,50 +94,46 @@ const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelected
                 <div className={styles.iconContainer}>
                     <p>参加者:</p>
                     {userData?.id === recruitment.user.id ?
-                        <Link href={'/profile'}>
-                            <div key={recruitment.user.id}>
-                                <Image
-                                    src={recruitment.user.icon_path}
-                                    alt={recruitment.user.name}
-                                    style={styles.icon}
-                                />
-                                <span className='text-xs'>{recruitment.user.name}</span>
-                            </div>
-                        </Link>
+                        <Link href={'/profile'} key={recruitment.user.id}>
+                            {/* <div key={recruitment.user.id}> */}
+                            <Image
+                                src={recruitment.user.icon_path}
+                                alt={recruitment.user.name}
+                                style={styles.icon}
+                            />
+                            <span className='text-xs'>{recruitment.user.name}</span>
+                            {/* </div> */}
+                        </Link >
                         :
-                        <Link href={`/profile/${recruitment.user.id}`}>
-                            <div key={recruitment.user.id}>
-                                <Image
-                                    src={recruitment.user.icon_path}
-                                    alt={recruitment.user.name}
-                                    style={styles.icon}
-                                />
-                                <span className='text-xs'>{recruitment.user.name}</span>
-                            </div>
+                        <Link href={`/profile/${recruitment.user.id}`} key={recruitment.user.id}>
+                            {/* <div key={recruitment.user.id}> */}
+                            <Image
+                                src={recruitment.user.icon_path}
+                                alt={recruitment.user.name}
+                                style={styles.icon}
+                            />
+                            <span className='text-xs'>{recruitment.user.name}</span>
+                            {/* </div> */}
                         </Link>
                     }
                     {recruitment.approvedUsers.map((user) => (
                         //募集作成者以外の募集参加者を表示
                         recruitment.user.id !== user.id ? (
-                            userData.id === user.id ?
-                                <Link href={'/profile'}>
-                                    <div key={user.id}>
-                                        <Image //Todo: ProfileImageコンポーネントを作成し、クリックしたらそのユーザーのプロフィール画面に行くようにする
-                                            src={user.icon_path}
-                                            alt={user.name}
-                                            style={styles.icon}
-                                        />
-                                    </div>
+                            userData?.id === user.id ?
+                                <Link href={'/profile'} key={user.id}>
+                                    <Image
+                                        src={user.icon_path}
+                                        alt={user.name}
+                                        style={styles.icon}
+                                    />
                                 </Link>
                                 :
-                                <Link href={`/profile/${user.id}`}>
-                                    <div key={user.id}>
-                                        <Image //Todo: ProfileImageコンポーネントを作成し、クリックしたらそのユーザーのプロフィール画面に行くようにする
-                                            src={user.icon_path}
-                                            alt={user.name}
-                                            style={styles.icon}
-                                        />
-                                    </div>
+                                <Link href={`/profile/${user.id}`} key={user.id}>
+                                    <Image
+                                        src={user.icon_path}
+                                        alt={user.name}
+                                        style={styles.icon}
+                                    />
                                 </Link>
                         ) : null
                     ))}
@@ -152,6 +157,7 @@ const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelected
 
                     setSelectedRecruitment={setSelectedRecruitment}
                     toast={toast}
+                    mutate={mutate}
                 />
 
             </div>

@@ -1,7 +1,8 @@
 import styles from '@/styles/components/recruitments/CommentModal.module.css'
 import axios from '@/lib/axios';
+import Link from 'next/link';
 
-const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecruitment, setSelectedRecruitment, userData, newComment, setNewComment }) => {
+const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecruitment, setSelectedRecruitment, userData, newComment, setNewComment, mutate }) => {
 
     const handleCloseCommentModal = () => {
         setIsCommentModalOpen(false);
@@ -35,6 +36,7 @@ const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecru
                 }));
 
                 setNewComment("");
+                mutate()
 
             }
         } catch (error) {
@@ -58,16 +60,29 @@ const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecru
                                 <h2>コメント</h2>
                                 <div className={styles.comments}>
                                     {selectedRecruitment.comments.map((comment) => (
-                                        <div
-                                            className={`${styles.comment} ${comment.user.id === userData.id ? styles.myComment : styles.otherComment}`}
-                                            key={comment.id}
-                                        >
-                                            <img src={comment.user && comment.user.icon_path ? `${process.env.NEXT_PUBLIC_AWS_URL}${comment.user.icon_path}` : '/user_circle_icon.svg'} alt={comment.user ? comment.user.name : 'Unknown User'} />
+                                        comment.user.id === userData.id ?
+                                            <div
+                                                className={`${styles.comment} ${styles.myComment}`}
+                                                key={comment.id}
+                                            >
+                                                {/* <img src={comment.user && comment.user.icon_path ? `${process.env.NEXT_PUBLIC_AWS_URL}${comment.user.icon_path}` : '/user_circle_icon.svg'} alt={comment.user ? comment.user.name : 'Unknown User'} /> */}
 
-                                            <div className={styles.commentContent}>
-                                                <p className={styles.commentText}>{comment.comment_text}</p>
+                                                <div className={styles.commentContent}>
+                                                    <p className={styles.commentText}>{comment.comment_text}</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                            :
+                                            <div
+                                                className={`${styles.comment} ${styles.otherComment}`}
+                                                key={comment.id}
+                                            >
+                                                <Link href={`/profile/${comment.user.id}`} key={comment.user.id}>
+                                                    <img src={comment.user && comment.user.icon_path ? `${process.env.NEXT_PUBLIC_AWS_URL}${comment.user.icon_path}` : '/user_circle_icon.svg'} alt={comment.user ? comment.user.name : 'Unknown User'} />
+                                                </Link>
+                                                <div className={styles.commentContent}>
+                                                    <p className={styles.commentText}>{comment.comment_text}</p>
+                                                </div>
+                                            </div>
                                     ))}
                                 </div>
                                 <div className={styles.commentInputContainer}>

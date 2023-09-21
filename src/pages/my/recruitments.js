@@ -31,7 +31,7 @@ function MyRecruitmentList() {
         }
 
         fetchRecruitments();
-    }, []); // この空の依存配列により、このuseEffectはコンポーネントがマウントされたときに1回だけ実行されます
+    }, []);
 
     return (
         <AppLayout
@@ -50,9 +50,9 @@ function MyRecruitmentList() {
                     <ul>
                         {recruitments.map((recruitment) => (
                             recruitment.is_approved === 1 ?
-                                <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                                <div key={recruitment.recruitment_id} className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                     {/* ダイナミックルートへのリンクを設定 */}
-                                    <Link href={`/recruitment/${recruitment.recruitment_id}`}>
+                                    <Link href={`/recruitments/${recruitment.recruitment_id}`}>
                                         <li key={recruitment.recruitment_id} className="p-6 bg-white border-b border-gray-200">
                                             {recruitment.recruitment_title}
                                         </li>

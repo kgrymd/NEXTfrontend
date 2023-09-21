@@ -10,9 +10,14 @@ import FooterTabBar from "@/components/FooterTabBar";
 import TagDisplay from "@/components/TagDisplay";
 
 import { useRouter } from 'next/router';
+import Layout from "@/components/Layouts/Layout";
+import Header from "@/components/Header";
+import { useAuth } from "@/hooks/auth";
 
 
 const Profile = () => {
+    const { user } = useAuth({ middleware: 'auth' })
+
 
     // useRouterフックを使用してルーターオブジェクトを取得
     const router = useRouter();
@@ -28,10 +33,13 @@ const Profile = () => {
 
 
     return (
-        <AppLayout>
+        <Layout>
+            <Header />
             <Head>
-                <title>Profile</title>
+                <title>Recruitments Page</title>
             </Head>
+            {/* ヘッダー分の余白（仮） */}
+            <div className='mt-16'></div>
 
             {userData ? (
                 <>
@@ -73,8 +81,8 @@ const Profile = () => {
                 </Link>
             </div> */}
 
-            <FooterTabBar user={userData} />
-        </AppLayout>
+            <FooterTabBar user={user} />
+        </ Layout >
     )
 }
 
