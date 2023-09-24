@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import useSWR from 'swr';
+import { useRouter } from 'next/router';
 
 import styles from '@/styles/recruitmentCreation.module.css'
 
@@ -13,41 +14,67 @@ import Button from '@/components/Button'
 import TagEditor from '@/components/Tags/TagEditor'
 import TagDisplay from '@/components/Tags/TagDisplay'
 import PrefectureSelect from '@/components/PrefectureSelect'
-import RecruitmentCreationImages from '@/components/RecruitmentCreation/RecruitmentCreationImages';
+import RecruitmentEditImages from '@/components/RecruitmentEdit/RecruitmentEditImages';
 
 import { useAuth } from '@/hooks/auth'
 import Header from '@/components/Header';
 
-const RecruitmentCreation = () => {
+const RecruitmentEdit = () => {
     const { user } = useAuth({ middleware: 'auth' })
+
+    const router = useRouter();
+    const { id } = router.query; // URLから募集のIDを取得
 
     const fetcher = url => axios.get(url).then(res => res.data);
 
-    const { data: prefectures, error } = useSWR('/api/prefectures', fetcher);
-    if (error) console.error('prefecturesの取得に失敗しました。:', error);
+    const { data: recruitmentData, error: recruitmentDataError } = useSWR(`/api/recruitments/${id}`, fetcher);
+    const { data: prefectures, prefecturesError } = useSWR('/api/prefectures', fetcher);
 
+    if (recruitmentDataError || prefecturesError) console.error("Error fetching the data:", recruitmentDataError || prefecturesError);
 
-    const [selectedPrefecture, setSelectedPrefecture] = useState(user?.prefecture_id || 1);
+    const [selectedPrefecture, setSelectedPrefecture] = useState(recruitmentData?.prefecture_id || 1);
     const [message, setMessage] = useState('')
     // モーダル表示のためのState
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [recruitmentForm, setRecruitmentForm] = useState({
-        title: '',
-        description: '',
-        youtube_url: '',
-        reference_url: '',
-        age_from: '',
-        age_to: '',
-        min_people: '',
-        max_people: '',
-        start_date: '',
-        end_date: '',
-        images: [],
-        tags: [],
+        title: recruitmentData?.title || '',
+        description: recruitmentData?.description || '',
+        youtube_url: recruitmentData?.youtube_url || '',
+        reference_url: recruitmentData?.reference_url || '',
+        age_from: recruitmentData?.age_from || '',
+        age_to: recruitmentData?.age_to || '',
+        min_people: recruitmentData?.min_people || '',
+        max_people: recruitmentData?.max_people || '',
+        start_date: recruitmentData?.start_date || '',
+        end_date: recruitmentData?.end_date || '',
+        images: recruitmentData?.images || [],
+        tags: recruitmentData?.tags || [],
     })
 
 
     console.log(recruitmentForm)
+
+
+    useEffect(() => {
+        if (recruitmentData) {
+            // データがロードされたときに状態を更新
+            setRecruitmentForm({
+                title: recruitmentData.title,
+                description: recruitmentData.description,
+                youtube_url: recruitmentData.youtube_url,
+                reference_url: recruitmentData.reference_url,
+                age_from: recruitmentData.age_from,
+                age_to: recruitmentData.age_to,
+                min_people: recruitmentData.min_people,
+                max_people: recruitmentData.max_people,
+                start_date: recruitmentData.start_date,
+                end_date: recruitmentData.end_date,
+                images: recruitmentData.images,
+                tags: recruitmentData.tags,
+            });
+        }
+    }, [recruitmentData]);
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -62,17 +89,8 @@ const RecruitmentCreation = () => {
         setIsModalOpen(false);
     }
 
-
     const submit = async e => {
         e.preventDefault()
-
-        // 必須項目のチェック
-        if (!validateRequiredFields()) {
-            setMessage('必須項目を全て入力してください');
-            return; // ここでsubmit関数を終了
-        }
-
-
         const data = new FormData()
 
         data.append('title', recruitmentForm.title)
@@ -87,21 +105,34 @@ const RecruitmentCreation = () => {
         data.append('start_date', recruitmentForm.start_date)
         data.append('end_date', recruitmentForm.end_date)
 
+        // recruitmentForm.images.forEach((image, index) => {
+        //     data.append(`images[${index}]`, image);
+        // });
+
         recruitmentForm.images.forEach((image, index) => {
-            data.append(`images[${index}]`, image);
+            if (image instanceof File) {
+                // data.append(`images[${index}]`, image);
+                data.append(`newImages[${index}]`, image);
+            } else {
+                // 既存の画像のIDを送信する。このようにIDだけを送信すれば、バックエンド側で画像が変更されていないことを判別できます。
+                data.append(`images[${index}]`, image.id);
+                // data.append(`images[${index}]`, image.id);
+            }
         });
 
         recruitmentForm.tags.forEach((tag, index) => {
             data.append(`tags[${index}]`, tag.id);
         });
 
+        console.log("Sending Images Data:", recruitmentForm.images);
+
         try {
-            const response = await axios.post('/api/recruitments', data, {
+            const response = await axios.post(`/api/recruitments/${id}`, data, {
                 headers: { 'content-type': 'multipart/form-data' },
             })
             console.log(response.status)
             if (response.status === 200) {
-                window.location.href = '/recruitments'
+                router.back();
             } else {
                 setMessage('エラーが発生しました。')
             }
@@ -119,29 +150,18 @@ const RecruitmentCreation = () => {
 
     }
 
-    const validateRequiredFields = () => {
-        const requiredFields = ["title", "end_date", "start_date"];
-        for (const field of requiredFields) {
-            if (!recruitmentForm[field]) {
-                return false;
-            }
-        }
-        return true;
-    };
-
 
     return (
         <Layout>
-            <Header headerTitle="募集作成" />
             <Head>
                 <title>Recruitment creation page</title>
             </Head>
+            <Header headerTitle="募集編集" />
+
             <div className={styles.container}>
                 <div className={styles.content}>
-                    {/* ページコンテンツ */}
                     <div className={styles.formName}>
                         <h2>タイトル</h2>
-                        <p>必須</p>
                     </div>
                     <input
                         type="text"
@@ -150,7 +170,6 @@ const RecruitmentCreation = () => {
                         onChange={handleInputChange}
                         placeholder="タイトル"
                         className={styles.inputTitle}
-                        required
                     />
                     <div className={styles.formName}>
                         <h2>YouTubeのURL</h2>
@@ -166,7 +185,7 @@ const RecruitmentCreation = () => {
                     <div className={styles.formName}>
                         <h2>画像を追加</h2>
                     </div>
-                    <RecruitmentCreationImages
+                    <RecruitmentEditImages
                         recruitmentForm={recruitmentForm}
                         setRecruitmentForm={setRecruitmentForm}
                     />
@@ -203,7 +222,7 @@ const RecruitmentCreation = () => {
                     />
 
                     <div className={styles.formName}>
-                        <h2>募集年齢</h2>
+                        <h2>募集の年齢範囲</h2>
                     </div>
                     <div className={styles.range}>
                         <input
@@ -249,8 +268,7 @@ const RecruitmentCreation = () => {
                     </div>
 
                     <div className={styles.formName}>
-                        <h2>募集開始日</h2>
-                        <p>必須</p>
+                        <h2>開始日</h2>
                     </div>
                     <input
                         type="date"
@@ -261,8 +279,7 @@ const RecruitmentCreation = () => {
                     />
 
                     <div className={styles.formName}>
-                        <h2>募集終了日</h2>
-                        <p>必須</p>
+                        <h2>終了日</h2>
                     </div>
                     <input
                         type="date"
@@ -295,7 +312,7 @@ const RecruitmentCreation = () => {
                         <button
                             className={styles.createButton}
                             onClick={submit}>
-                            作成！
+                            更新！
                         </button>
                     </div>
                 </div>
@@ -306,4 +323,4 @@ const RecruitmentCreation = () => {
 }
 
 
-export default RecruitmentCreation
+export default RecruitmentEdit

@@ -1,20 +1,21 @@
-import styles from '@/styles/components/groupChats/GroupChat.module.css'
-import axios from '@/lib/axios';
 import { useState, useRef, useEffect } from 'react';
-import useSWR from 'swr';
-
 import { useRouter } from 'next/router';
-import Layout from '@/components/Layouts/Layout';
-import Header from '@/components/Header';
+import useSWR from 'swr';
 import Head from 'next/head';
 import Link from 'next/link';
+
+import styles from '@/styles/groupChat.module.css'
+
+import Layout from '@/components/Layouts/Layout';
+import Header from '@/components/Header';
+
+import axios from '@/lib/axios';
+
 
 const GroupChat = () => {
 
     const router = useRouter();
     const { id } = router.query;  // パスからuuidを取
-
-    console.log('id', id)
 
     const messagesContainerRef = useRef(null);
 
@@ -25,6 +26,9 @@ const GroupChat = () => {
     const { data: userData, error: userError } = useSWR('/api/me', fetcher);
 
     const { data: groupChat, error: groupChatError } = useSWR(`/api/chat-groups/${id}`, fetcher);
+
+    if (userError || groupChatError) console.error("Error fetching the data:", userError || groupChatError);
+
 
     // 2秒おきにメッセージを再フェッチする
     const { data: messages, mutate } = useSWR(`/api/chat-groups/${id}/messages`, fetcher, {
@@ -78,13 +82,13 @@ const GroupChat = () => {
 
     return (
         <Layout>
-            <Header>
+            <Header headerTitle={groupChat?.name ? groupChat.name : null} chat={true}>
                 <Head>
-                    <title>Profile Edit</title>
+                    <title>Group Chat</title>
                 </Head>
                 <div className={styles.chat} >
                     <div className={styles.chatContent}>
-                        {groupChat && <h2>{groupChat.name}</h2>}
+                        {/* {groupChat && <h2>{groupChat.name}</h2>} */}
                         <div className={styles.messages} ref={messagesContainerRef}>
                             {messages && messages.map((message) => (
 

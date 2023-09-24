@@ -1,51 +1,37 @@
-import Link from 'next/link';
-import axios from '@/lib/axios';
-import { useState, useEffect } from 'react';
 import useSWR from 'swr';
-import AppLayout from '@/components/Layouts/AppLayout';
-import FooterTabBar from '@/components/FooterTabBar';
+import Link from 'next/link';
 import Head from 'next/head';
 
+import FooterTabBar from '@/components/FooterTabBar';
+import Header from '@/components/Header';
+import Layout from '@/components/Layouts/Layout';
+
+import axios from '@/lib/axios';
+
+
 function GroupChats() {
-    const [chat_groups, setChatGroups] = useState([]);
 
     const fetcher = url => axios.get(url).then(res => res.data).catch(error => {
         throw error.response.data;
     });
 
+    const { data: chat_groups, error: chatError } = useSWR('/api/my/chat-groups', fetcher);
     const { data: userData, error: userError } = useSWR('/api/me', fetcher);
 
-    useEffect(() => {
-        // APIからユーザーが参加している募集一覧を取得
-        async function fetchChatGroups() {
-            try {
-                const response = await axios.get('/api/my/chat-groups'); //Todo: エンドポイントを承認済み募集に変える
-                setChatGroups(response.data);
-            } catch (error) {
-                console.error("Error fetching the chat_groups data:", error); //Todo:
-            }
-        }
+    if (chatError || userError) console.error("Error fetching the data:", chatError || userError);
 
-        fetchChatGroups();
-    }, []);
 
     return (
-        <AppLayout
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    GroupChats
-                </h2>
-            }
-        >
+        <Layout>
+            <Header headerTitle={'GroupChats'} />
             <Head>
                 <title>GroupChats</title>
             </Head>
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-8">
 
                     <ul>
-                        {chat_groups.map((chat_group) => (
+                        {chat_groups && chat_groups.map((chat_group) => (
                             <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg" key={chat_group.id}>
                                 {/* ダイナミックルートへのリンクを設定 */}
                                 <Link href={`/groupChats/${chat_group.uuid}`}>
@@ -57,14 +43,10 @@ function GroupChats() {
                         ))}
                     </ul>
 
-
-
-
-
                 </div>
             </div>
             <FooterTabBar user={userData} />
-        </AppLayout>
+        </Layout>
     );
 }
 

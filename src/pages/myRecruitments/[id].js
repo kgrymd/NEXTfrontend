@@ -1,15 +1,17 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router';
-import Head from "next/head";
 import useSWR from "swr";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from 'next/router';
 
 import styles from '@/styles/recruitmentList.module.css'
 
+import FooterTabBar from "@/components/FooterTabBar";
 import Layout from '@/components/Layouts/Layout'
 import CommentModal from '@/components/Recruitments/CommentModal'
 import Recruitment from '@/components/Recruitments/Recruitment'
 import Header from "@/components/Header";
-import FooterTabBar from "@/components/FooterTabBar";
+import Button from "@/components/Button";
 
 import axios from "@/lib/axios";
 
@@ -22,7 +24,7 @@ const RecruitmentShow = () => {
 
     // ユーザーが入力する新しいコメントを管理するためのstate
     const [newComment, setNewComment] = useState("");
-    // 追加：モーダルの表示状態を管理するためのstate
+    // モーダルの表示状態を管理するためのstate
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
     const [selectedRecruitment, setSelectedRecruitment] = useState(null);
 
@@ -39,20 +41,19 @@ const RecruitmentShow = () => {
 
 
 
-    console.log(recruitment)
-    console.log('selectedRecruitment', selectedRecruitment)
+    // console.log(recruitment)
+    // console.log('selectedRecruitment', selectedRecruitment)
 
 
     return (
         <Layout>
             <Header />
             <Head>
-                <title>Recruitment Page</title>
+                <title>Created recruitment</title>
             </Head>
             {/* ヘッダー分の余白（仮） */}
             <div className='mt-16'></div>
             <div className={styles.container}>
-
                 <Recruitment
                     recruitment={recruitment}
                     userData={userData}
@@ -62,6 +63,13 @@ const RecruitmentShow = () => {
                     setSelectedRecruitment={setSelectedRecruitment}
                 />
             </div>
+            <div className="flex justify-center mt-4">
+                <Link href={`/recruitmentEdit/${recruitment.id}`}>
+                    <Button type="button">募集を編集する</Button>
+                </Link>
+            </div>
+
+
             {/* フッター分の余白（仮） */}
             <div className='mb-16'></div>
             <FooterTabBar user={userData} />
@@ -70,7 +78,6 @@ const RecruitmentShow = () => {
             <CommentModal
                 isCommentModalOpen={isCommentModalOpen}
                 setIsCommentModalOpen={setIsCommentModalOpen}
-                // selectedRecruitment={selectedRecruitment}
                 selectedRecruitment={recruitment}
                 setSelectedRecruitment={setSelectedRecruitment}
                 newComment={newComment}

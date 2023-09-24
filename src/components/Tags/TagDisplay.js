@@ -9,6 +9,7 @@ function TagDisplay({ tags, onTagClick, tagColor, message }) {
         )
     }
     return (
+        // なぜかpropsの値で変数で記述するとtailwind CSSが効く時と効かない時があるので、直書きに変更
         <>
             {
                 tagColor === "blue" ?

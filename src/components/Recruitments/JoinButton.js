@@ -1,11 +1,12 @@
 import React from 'react'
+
 import styles from '@/styles/components/recruitments/JoinButton.module.css'
+
 import axios from '@/lib/axios'
 
 
 const JoinButton = ({ userData, recruitment, setSelectedRecruitment, toast, mutate }) => {
 
-    // 募集に参加するための関数
     const joinRecruitment = async (recruitment) => {
 
         setSelectedRecruitment(recruitment);
@@ -26,7 +27,8 @@ const JoinButton = ({ userData, recruitment, setSelectedRecruitment, toast, muta
             // toast.error('参加に失敗しました。もう一度試してください。');
             toast.error('すでに参加しています！');
         }
-        mutate()
+
+        mutate && mutate()
     }
 
 

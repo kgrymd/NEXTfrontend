@@ -3,7 +3,6 @@
     justify-content: center;
     align-items: center;
     height: 4rem;
-    /* background-color: white; */
     color: white;
     font-weight: bold;
     background-color: rgb(30, 30, 30);
@@ -60,6 +59,7 @@
 .formName h2 {
     font-weight: bold;
     font-size: 1.1rem;
+    margin-top: 0.5rem;
 }
 
 .formName p {
@@ -68,24 +68,6 @@
     color: rgb(255, 100, 100);
     display: flex;
     align-items: flex-end;
-}
-
-.recruitmentImagesContainer {
-    display: flex;
-    flex-direction: column;
-}
-
-.imageContainer {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 20%;
-    overflow-x: auto;
-}
-
-.textareaBox {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
 }
 
 .itemContainer {
@@ -133,7 +115,6 @@
     align-items: center;
     justify-content: center;
     padding: 0.5rem 1rem;
-    background-color: #ff6f6f;
     background-color: #84cc16;
     border: 1px solid transparent;
     border-radius: 0.25rem;
@@ -141,7 +122,6 @@
     font-size: 1.2rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    /* color: #fff; */
     cursor: pointer;
     width: 12rem;
     margin: 1rem 0;
@@ -150,28 +130,6 @@
 .createButton:disabled {
     background: #ccc;
 }
-
-
-/* .createButton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem 1rem;
-    background-color: #414c5e;
-    border-radius: 0.25rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #fff;
-    width: 8rem;
-    margin: 1rem 0;
-}
-
-.createButton:disabled {
-    background-color: rgb(190, 190, 190);
-} */
-
-
 
 
 .errorText {
@@ -185,7 +143,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(0, 0, 0, 0.7); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -193,9 +150,7 @@
 }
 
 .modalContent {
-    background-color: #fff;
     background-color: lemonchiffon;
-    /* background-color: rgba(0, 0, 0, 0.3); */
     padding: 20px;
     border-radius: 10px;
     width: 80%;
@@ -204,12 +159,14 @@
     position: relative;
 }
 
-
-
-.ageRange,
-.peopleRange {
+.range {
     display: flex;
     align-items: center;
+}
+
+.inputTitle,
+.inputURL {
+    width: 100%;
 }
 
 .inputAge,
@@ -217,10 +174,10 @@
     width: 40%;
     padding: 0.5rem 1rem;
     margin-right: 1rem;
+    margin-left: 1rem;
 }
 
 .inputDate {
     width: 100%;
     padding: 0.5rem 1rem;
-    margin-top: 0.5rem;
 }

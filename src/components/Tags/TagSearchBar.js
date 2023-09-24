@@ -1,4 +1,4 @@
-import styles from '@/styles/components/TagSearchBar.module.css'
+import styles from '@/styles/components/Tags/TagSearchBar.module.css'
 
 
 function TagSearchBar({ value, onChange, onAdd, tagExists }) {

@@ -2,25 +2,21 @@ import { useState } from 'react'
 import Head from 'next/head'
 import useSWR from 'swr'
 
-import styles from '@/styles/recruitmentList.module.css'
-
-import axios from '@/lib/axios'
+import styles from '@/styles/search.module.css'
 
 import Layout from '@/components/Layouts/Layout'
 import FooterTabBar from '@/components/FooterTabBar'
 import CommentModal from '@/components/Recruitments/CommentModal'
 import Recruitment from '@/components/Recruitments/Recruitment'
+import Header from '@/components/Header'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Link from 'next/link'
-import Header from '@/components/Header'
 
+import axios from '@/lib/axios'
 
 
 export default function RecruitmentList() {
-
-
 
     const [searchKeyword, setSearchKeyword] = useState("");
     const [recruitments, setRecruitments] = useState([]);
@@ -31,15 +27,11 @@ export default function RecruitmentList() {
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
     const [selectedRecruitment, setSelectedRecruitment] = useState(null);
 
-
     const fetcher = url => axios.get(url).then(res => res.data).catch(error => {
         throw error.response.data;
     });
 
     const { data: userData, error: userError } = useSWR('/api/me', fetcher);
-
-    // const { data: recruitments, error: recruitmentsError, mutate } = useSWR('/api/recruitments', fetcher);
-
 
     const handleSearch = async () => {
         try {
@@ -50,21 +42,14 @@ export default function RecruitmentList() {
         }
     }
 
-
-
     if (userError) console.error('ユーザーデータの取得に失敗しました。:', userError);
-    // if (recruitmentsError) return <div>データの読み込みに失敗しました</div>
-    // if (!recruitments) return <div>ロード中...</div>
-
-
-    // console.log(recruitments);
 
 
     return (
         <Layout>
-            <Header />
+            <Header headerTitle={'募集検索'} />
             <Head>
-                <title>Recruitments Page</title>
+                <title>Search Page</title>
             </Head>
             {/* ヘッダー分の余白（仮） */}
             <div className='mt-16'></div>
@@ -77,8 +62,9 @@ export default function RecruitmentList() {
                         value={searchKeyword}
                         onChange={(e) => setSearchKeyword(e.target.value)}
                         placeholder="キーワードを入力..."
+                        className={styles.searchInput}
                     />
-                    <button onClick={handleSearch}>検索</button>
+                    <button onClick={handleSearch} className={styles.searchButton}>検索</button>
                 </div>
 
                 {recruitments && recruitments.map((recruitment) => (
