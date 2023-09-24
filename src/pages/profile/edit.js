@@ -76,17 +76,6 @@ const Edit = () => {
         setFormData({ ...formData, iconFile: '' })
     }
 
-    // Todo: タグ編集をコンポーネント化してモーダルで編集できるようにしたから、disabledの設定をやめるか何とか別の方法でするか
-    const isSaveButtonDisabled = (formData) => {
-        return (
-            Object.values(formData).every(
-                value => value === '',
-            ) && (selectedPrefecture === user?.prefecture_id || !selectedPrefecture)
-                ? true
-                : false
-        )
-    }
-
     // モーダルを開く関数
     const openModal = () => {
         setIsModalOpen(true);
@@ -140,11 +129,6 @@ const Edit = () => {
         }
     }
 
-    console.log(formData)
-    // console.log(selectedPrefecture)
-
-
-
     const validateRequiredFields = () => {
         const requiredFields = ["name", "age", "email"];
         for (const field of requiredFields) {
@@ -157,7 +141,7 @@ const Edit = () => {
 
 
 
-
+    console.log(formData)
 
 
 
@@ -309,12 +293,10 @@ const Edit = () => {
                                 </div>
                             )}
 
-                            {/* <div className="flex justify-center"> */}
                             <div className="flex flex-col justify-center items-center m-y-2">
                                 <p className={styles.errorText}>{message}</p>
                                 <button
                                     className={styles.submitButton}
-                                    disabled={isSaveButtonDisabled(formData)}
                                     onClick={submit}>
                                     保存
                                 </button>
