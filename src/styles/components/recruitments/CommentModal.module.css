@@ -3,8 +3,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    /* background-color: rgba(0, 0, 0, 0.5); */
-    /* モーダルの背景に半透明の黒色を追加 */
     z-index: 10000;
 }
 
@@ -27,16 +25,15 @@
     background-color: #c9cad4;
     padding: 20px;
     width: 100%;
-
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     /* ボックスシャドウを追加 */
     position: relative;
     box-sizing: border-box;
     /* 追加: paddingを含む全体の幅を指定されたwidthに合わせる */
-
     animation: slideUp 0.2s ease-out;
     /* アニメーションの適用 */
+    z-index: 1000;
 }
 
 .comments {
@@ -44,49 +41,31 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-
     max-height: 500px;
-    /* お好みで調整 */
     overflow-y: auto;
     /* 縦方向のスクロールを有効にする */
     padding: 10px;
     /* 内側のスペースを追加 */
-    /* margin-bottom: 10px; */
-    /* 下のボタンとの間にスペースを追加 */
-
-    background-color: rgb(251, 241, 217);
-    background-color: rgb(208, 230, 238);
     background-color: rgb(75, 75, 75);
-
-
     border-radius: 10px 10px 0 0;
 }
 
-
-
 .comment img {
     width: 40px;
-    /* アイコンのサイズ */
     height: 40px;
-    /* アイコンのサイズ */
     border-radius: 50%;
-    /* アイコンを円形に */
     object-fit: cover;
-    /* 画像をフィットさせる */
 }
 
 .commentText {
     margin: 5px 0 0;
-
 }
 
 .myComment {
     /* 右側に表示するためのスタイルを追加 */
     justify-content: flex-end;
-
     flex-direction: row-reverse;
     align-self: flex-end;
-
 }
 
 .otherComment {
@@ -94,16 +73,12 @@
     justify-content: flex-start;
 }
 
-
-
 .commentInputContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* margin-top: 1rem; */
     padding: 0.5rem;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    background-color: rgb(251, 241, 217);
     background-color: rgb(75, 75, 75);
     border-radius: 0 0 10px 10px;
 }
@@ -120,7 +95,6 @@
     font-size: 1rem;
     transition: box-shadow 0.2s ease-in-out;
     background-color: #f7f7f7;
-    /* background-color: rgb(250, 238, 215); */
 }
 
 .commentInput:focus {
@@ -128,7 +102,6 @@
 }
 
 .commentSubmitButton {
-    background-color: green;
     background-color: #84cc16;
     font-weight: bold;
     color: black;
@@ -144,7 +117,6 @@
 }
 
 .commentCloseButton {
-    background-color: green;
     color: black;
     background-color: #84cc16;
     font-weight: bold;
@@ -164,10 +136,6 @@
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    /* justify-content: space-between; */
-    /* これを追加 */
-    /* justify-content: center; */
-    /* 中央揃えを行う */
 }
 
 .otherComment .commentContent {
@@ -177,12 +145,6 @@
     /* 吹き出しの丸み */
     background-color: #f5f5f5;
     /* 吹き出しの背景色 */
-
-    /* kokosita */
-    /* max-width: 80%; */
-    /* 最大幅を制限 */
-    /* word-break: break-word; */
-    /* 長い文字列がある場合の折り返し */
     margin-right: auto;
 }
 
@@ -205,18 +167,8 @@
     padding: 10px;
     border-radius: 10px;
     /* 吹き出しの丸み */
-    background-color: #e6e6e6;
     background-color: #d9f99d;
     /* 吹き出しの背景色 */
-
-
-
-    /* kokosita */
-    /* max-width: 80%; */
-    /* 最大幅を制限 */
-    /* word-break: break-word; */
-    /* 長い文字列がある場合の折り返し */
-
 }
 
 .myComment .commentContent::before {
@@ -224,14 +176,10 @@
     position: absolute;
     top: 10px;
     right: -10px;
-
-
-
     width: 0;
     height: 0;
     border-top: 7px solid transparent;
     border-bottom: 7px solid transparent;
-    border-left: 10px solid #e6e6e6;
     border-left: 10px solid #d9f99d;
     /* 吹き出しの背景色と同じに */
 }

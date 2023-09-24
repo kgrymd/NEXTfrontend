@@ -1,4 +1,5 @@
 import React from 'react'
+
 import styles from '@/styles/components/PrefectureSelect.module.css'
 
 const PrefectureSelect = ({ selectedPrefecture, setSelectedPrefecture, prefectures = [] }) => {

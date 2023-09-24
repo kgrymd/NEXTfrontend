@@ -1,15 +1,34 @@
 import React from 'react'
+
 import styles from '@/styles/components/recruitments/LikeButton.module.css'
+
 import LikeIcon from './LikeIcon'
 
+import axios from '@/lib/axios'
+
 const LikeButton = ({ liked, recruitment, setLiked }) => {
-    // 各募集のいいね状態をトラックするためのstate
-    // const [likedRecruitments, setLikedRecruitments] = useState({});
 
 
-    const handleLikeClick = (recruitmentId) => {
+    const handleLikeClick = async (recruitmentId) => {
         setLiked(prevState => !prevState);
-        // Todo: ユーザーと募集の中間テーブル(like管理用)にlikedがtrueなら保存、falseなら削除の処理のエンドポイントにPOSTする処理を書く。もしくはバックでlikedによって保存か削除か変える
+
+        if (liked) {
+            // お気に入りを解除
+            try {
+                await axios.delete(`/api/recruitments/${recruitmentId}/unfavorite`);
+            } catch (error) {
+                console.error("お気に入り解除に失敗しました:", error);
+                setLiked(true); // エラーが発生した場合は、likeの状態を元に戻す
+            }
+        } else {
+            // お気に入りに追加
+            try {
+                await axios.post(`/api/recruitments/${recruitmentId}/favorite`);
+            } catch (error) {
+                console.error("お気に入り追加に失敗しました:", error);
+                setLiked(false); // エラーが発生した場合は、likeの状態を元に戻す
+            }
+        }
     };
 
 

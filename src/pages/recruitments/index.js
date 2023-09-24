@@ -20,10 +20,10 @@ import Link from 'next/link'
 export default function RecruitmentList() {
 
     // おすすめと新着どちらで表示するかのstate
-    const [rule, setRule] = useState(false)
+    const [rule, setRule] = useState(true)
     // ユーザーが入力する新しいコメントを管理するためのstate
     const [newComment, setNewComment] = useState("");
-    // 追加：モーダルの表示状態を管理するためのstate
+    // モーダルの表示状態を管理するためのstate
     const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
     const [selectedRecruitment, setSelectedRecruitment] = useState(null);
 
@@ -34,12 +34,8 @@ export default function RecruitmentList() {
 
     const { data: userData, error: userError } = useSWR('/api/me', fetcher);
 
-    // const { data: recruitments, error: recruitmentsError, mutate } = useSWR('/api/recruitments', fetcher);
-
     const endpoint = rule ? '/api/recruitments/suggestions/suggest' : '/api/recruitments';
     const { data: recruitments, error: recruitmentsError, mutate } = useSWR(endpoint, fetcher);
-
-
 
 
     if (userError) console.error('ユーザーデータの取得に失敗しました。:', userError);

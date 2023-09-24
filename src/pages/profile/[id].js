@@ -1,17 +1,15 @@
+import { useRouter } from 'next/router';
 import useSWR from "swr";
 import Head from "next/head";
-import Link from "next/link";
+
 import axios from "@/lib/axios";
 
-import AppLayout from "@/components/Layouts/AppLayout";
-import Button from '@/components/Button';
 import Image from "@/components/Image";
 import FooterTabBar from "@/components/FooterTabBar";
-import TagDisplay from "@/components/TagDisplay";
-
-import { useRouter } from 'next/router';
+import TagDisplay from "@/components/Tags/TagDisplay";
 import Layout from "@/components/Layouts/Layout";
 import Header from "@/components/Header";
+
 import { useAuth } from "@/hooks/auth";
 
 
@@ -67,20 +65,6 @@ const Profile = () => {
             ) : (
                 <p>Loading...</p>
             )}
-
-
-
-            {/* <div className="flex justify-center">
-                <Link href={'/profile/tagEdit'}>
-                    <Button type="button">タグを編集</Button>
-                </Link>
-            </div> */}
-            {/* <div className="flex justify-center">
-                <Link href={'/profile/edit'}>
-                    <Button type="button">プロフィールを編集</Button>
-                </Link>
-            </div> */}
-
             <FooterTabBar user={user} />
         </ Layout >
     )

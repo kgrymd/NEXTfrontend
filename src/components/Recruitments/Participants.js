@@ -1,6 +1,8 @@
 import React from 'react'
-import styles from '@/styles/components/recruitments/Participants.module.css'
 import Link from 'next/link'
+
+import styles from '@/styles/components/recruitments/Participants.module.css'
+
 import Image from '../Image'
 
 const Participants = ({ userData, recruitment }) => {
@@ -14,7 +16,8 @@ const Participants = ({ userData, recruitment }) => {
                         alt={recruitment.user.name}
                         style={styles.icon}
                     />
-                    <span className='text-xs'>{recruitment.user.name}</span>
+                    {/* <span className='text-xs'>{recruitment.user.name}</span> */}
+                    <span className='text-xs'>作成者</span>
                 </Link >
                 :
                 <Link href={`/profile/${recruitment.user.id}`} key={recruitment.user.id}>
@@ -23,7 +26,8 @@ const Participants = ({ userData, recruitment }) => {
                         alt={recruitment.user.name}
                         style={styles.icon}
                     />
-                    <span className='text-xs'>{recruitment.user.name}</span>
+                    {/* <span className='text-xs'>{recruitment.user.name}</span> */}
+                    <span className='text-xs'>作成者</span>
                 </Link>
             }
             {recruitment.approvedUsers.map((user) => (

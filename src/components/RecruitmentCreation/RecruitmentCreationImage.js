@@ -1,5 +1,6 @@
 import React from 'react'
-import styles from '@/styles/components/recruitments/RecruitmentCreationImage.module.css'
+
+import styles from '@/styles/components/recruitmentCreation/RecruitmentCreationImage.module.css'
 
 const RecruitmentCreationImage = ({ index, src, onDelete }) => {
     return (

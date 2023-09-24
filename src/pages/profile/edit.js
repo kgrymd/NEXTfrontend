@@ -2,53 +2,64 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import useSWR from 'swr';
 
-// Styles
 import styles from '@/styles/profileEdit.module.css';
 
-// Libs
 import axios from '@/lib/axios';
 
-// Components
 import Layout from '@/components/Layouts/Layout';
 import Header from '@/components/Header';
 import Image from '@/components/Image';
 import PrefectureSelect from '@/components/PrefectureSelect';
-import TagDisplay from '@/components/TagDisplay';
+import TagDisplay from '@/components/Tags/TagDisplay';
 import Button from '@/components/Button';
-import TagEditor from '@/components/TagEditor';
+import TagEditor from '@/components/Tags/TagEditor';
 
-// Hooks
 import { useAuth } from '@/hooks/auth';
 
 
 const Edit = () => {
     const { user } = useAuth({ middleware: 'auth' })
 
-    const [selectedPrefecture, setSelectedPrefecture] = useState(user?.prefecture_id || null);
-    // モーダル表示のためのState
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [formData, setFormData] = useState({
-        iconFile: '',
-        age: '',
-        name: '',
-        email: '',
-        introduction: '',
-        tags: [],
-    })
-
-
     const fetcher = url => axios.get(url).then(res => res.data).catch(error => {
         throw error.response.data;
     });
 
 
-    // const { data: userData = { tags: [] }, mutate, error: userError } = useSWR('/api/me', fetcher);　← = { tags: [] }いらんよな？たぶん何かしらの理由で一時的に必要だったのだろうが忘れた
-    const { data: userData, error: userError } = useSWR('/api/me', fetcher);
     const { data: prefectures, error: prefectureError } = useSWR('/api/prefectures', fetcher);
+    const { data: userData, error: userError } = useSWR('/api/me', fetcher);
 
-    if (userError) console.error('ユーザーデータの取得に失敗しました。:', userError);
     if (prefectureError) console.error('prefecturesの取得に失敗しました。:', prefectureError);
+    if (userError) console.error('ユーザーデータの取得に失敗しました。:', userError);
 
+    if (prefectureError || userError) console.error("Error fetching the data:", prefectureError || userError);
+
+
+    // ユーザーが都道府県を設定していればその都道府県で、設定していなかったら1(未設定)をセット
+    const [selectedPrefecture, setSelectedPrefecture] = useState(user?.prefecture_id || 1);
+    const [message, setMessage] = useState('')
+    // モーダル表示のためのState
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [formData, setFormData] = useState({
+        iconFile: '',
+        age: userData?.age || '',
+        name: userData?.name || '',
+        email: userData?.email || '',
+        introduction: '',
+        tags: [],
+    })
+
+
+    useEffect(() => {
+        // userDataが変更された時に状態を更新
+        setFormData({
+            iconFile: '',
+            age: userData?.age || '',
+            name: userData?.name || '',
+            email: userData?.email || '',
+            introduction: '',
+            tags: [],
+        })
+    }, [userData]);
 
     // userDataが変更された時だけuserTagsを更新
     useEffect(() => {
@@ -89,6 +100,12 @@ const Edit = () => {
     const submit = async e => {
         e.preventDefault()
 
+        // 必須項目のチェック
+        if (!validateRequiredFields()) {
+            setMessage('必須項目を全て入力してください');
+            return; // ここでsubmit関数を終了
+        }
+
         const data = new FormData()
         for (const [key, value] of Object.entries(formData)) {
             if (value !== '') {
@@ -126,9 +143,27 @@ const Edit = () => {
     console.log(formData)
     // console.log(selectedPrefecture)
 
+
+
+    const validateRequiredFields = () => {
+        const requiredFields = ["name", "age", "email"];
+        for (const field of requiredFields) {
+            if (!formData[field]) {
+                return false;
+            }
+        }
+        return true;
+    };
+
+
+
+
+
+
+
     return (
         <Layout>
-            <Header backRoute={'/profile'}>
+            <Header backRoute={'/profile'} headerTitle="プロフィール編集">
                 <Head>
                     <title>Profile Edit</title>
                 </Head>
@@ -186,7 +221,10 @@ const Edit = () => {
                             </div>
 
                             <div className={styles.nameBox}>
-                                <label htmlFor="name">ユーザー名</label>
+                                <div className='flex'>
+                                    <label className={styles.label} htmlFor="name">ニックネーム</label>
+                                    <p>必須</p>
+                                </div>
                                 <div>
                                     <input
                                         type="text"
@@ -200,7 +238,10 @@ const Edit = () => {
                             </div>
 
                             <div className={styles.emailBox}>
-                                <label htmlFor="email">メールアドレス</label>
+                                <div className='flex'>
+                                    <label className={styles.label} htmlFor="email">メールアドレス</label>
+                                    <p>必須</p>
+                                </div>
                                 <div>
                                     <input
                                         type="email"
@@ -214,7 +255,10 @@ const Edit = () => {
                             </div>
 
                             <div className={styles.ageBox}>
-                                <label htmlFor="age">年齢</label>
+                                <div className='flex'>
+                                    <label className={styles.label} htmlFor="age">年齢</label>
+                                    <p>必須</p>
+                                </div>
                                 <div>
                                     <input
                                         type="number"
@@ -224,13 +268,13 @@ const Edit = () => {
                                         placeholder="例 20"
                                         defaultValue={user?.age}
                                         onChange={handleChange}
-                                    />
-                                    歳
+                                    />歳
                                 </div>
+
                             </div>
 
                             <div className={styles.textBox}>
-                                <label htmlFor="text">自己紹介</label>
+                                <label className={styles.label} htmlFor="text">自己紹介</label>
                                 <div>
                                     <textarea
                                         type="text"
@@ -248,11 +292,11 @@ const Edit = () => {
                                 prefectures={prefectures}
                             />
 
-                            <div>
-                                <h3 className="font-bold">自分のタグ:</h3>
+                            <div >
+                                <h2 style={{ fontWeight: "bold", fontSize: "1.1rem", marginTop: "0.5rem" }}>自分のタグ:</h2>
                                 <TagDisplay tags={formData.tags} tagColor="lime" message="タグを追加してください" />
                             </div>
-                            <div className="flex justify-center">
+                            <div className="flex justify-center mt-4">
                                 <Button type="button" onClick={openModal}>タグを編集</Button>
                             </div>
 
@@ -265,12 +309,16 @@ const Edit = () => {
                                 </div>
                             )}
 
-                            <button
-                                className={styles.submitButton}
-                                disabled={isSaveButtonDisabled(formData)}
-                                onClick={submit}>
-                                保存
-                            </button>
+                            {/* <div className="flex justify-center"> */}
+                            <div className="flex flex-col justify-center items-center m-y-2">
+                                <p className={styles.errorText}>{message}</p>
+                                <button
+                                    className={styles.submitButton}
+                                    disabled={isSaveButtonDisabled(formData)}
+                                    onClick={submit}>
+                                    保存
+                                </button>
+                            </div>
 
                         </form>
                     </div>

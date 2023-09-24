@@ -20,7 +20,6 @@ const Navigation = ({ user }) => {
     const [open, setOpen] = useState(false)
 
     return (
-        // <nav className={styles.nav}>
         <nav className={`${styles.nav} border-b border-gray-100`}>
             {/* Primary Navigation Menu */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,13 +35,6 @@ const Navigation = ({ user }) => {
                         {/* Navigation Links */}
                         <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <NavLink
-                                href="/dashboard"
-                                active={router.pathname === '/dashboard'}>
-                                Dashboard
-                            </NavLink>
-                        </div>
-                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <NavLink
                                 href="/recruitments"
                                 active={router.pathname === '/recruitments'}>
                                 Recruitments
@@ -50,9 +42,16 @@ const Navigation = ({ user }) => {
                         </div>
                         <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <NavLink
+                                href="/unchartedChallenge"
+                                active={router.pathname === '/unchartedChallenge'}>
+                                Uncharted challenge
+                            </NavLink>
+                        </div>
+                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <NavLink
                                 href="/profile"
                                 active={router.pathname === '/profile'}>
-                                Profile
+                                My page
                             </NavLink>
                         </div>
                     </div>
@@ -124,13 +123,6 @@ const Navigation = ({ user }) => {
             {/* Responsive Navigation Menu */}
             {open && (
                 <div className="block sm:hidden">
-                    {/* <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink
-                            href="/dashboard"
-                            active={router.pathname === '/dashboard'}>
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div> */}
 
                     {/* Responsive Settings Options */}
                     <div className="pt-4 pb-1 border-t border-gray-200">
@@ -164,16 +156,23 @@ const Navigation = ({ user }) => {
                             </ResponsiveNavButton>
                             <ResponsiveNavButton>
                                 <Link
-                                    href="/profile"
-                                    active={router.pathname === '/profile'}>
-                                    Profile
+                                    href="/myRecruitments/likedRecruitments"
+                                    active={router.pathname === '/myRecruitments/likedRecruitments'}>
+                                    お気に入りした募集
                                 </Link>
                             </ResponsiveNavButton>
                             <ResponsiveNavButton>
                                 <Link
-                                    href="/my/recruitments"
-                                    active={router.pathname === '/my/recruitments'}>
-                                    Recruitments
+                                    href="/myRecruitments/joinedRecruitments"
+                                    active={router.pathname === '/myRecruitments/joinedRecruitments'}>
+                                    参加した募集
+                                </Link>
+                            </ResponsiveNavButton>
+                            <ResponsiveNavButton>
+                                <Link
+                                    href="/myRecruitments/createdRecruitments"
+                                    active={router.pathname === '/myRecruitments/createdRecruitments'}>
+                                    作成した募集
                                 </Link>
                             </ResponsiveNavButton>
                         </div>

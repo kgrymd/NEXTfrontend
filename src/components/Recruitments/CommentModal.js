@@ -1,8 +1,15 @@
-import styles from '@/styles/components/recruitments/CommentModal.module.css'
-import axios from '@/lib/axios';
+import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 
+import styles from '@/styles/components/recruitments/CommentModal.module.css'
+
+import axios from '@/lib/axios';
+
 const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecruitment, setSelectedRecruitment, userData, newComment, setNewComment, mutate }) => {
+
+    const [isCommentSubmitted, setIsCommentSubmitted] = useState(false)
+
+    const commentsContainerRef = useRef(null);
 
     const handleCloseCommentModal = () => {
         setIsCommentModalOpen(false);
@@ -12,6 +19,14 @@ const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecru
     const handleKeyDown = (event) => {
         if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
             handleCommentSubmit();
+        }
+    }
+
+    // 最下部にスクロールする関数
+    const scrollToBottom = () => {
+        const element = commentsContainerRef.current;
+        if (element) {
+            element.scrollTop = element.scrollHeight;
         }
     }
 
@@ -38,11 +53,19 @@ const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecru
                 setNewComment("");
                 mutate()
 
+                setIsCommentSubmitted(true); // コメントが送信されたことを示す
+
+
             }
         } catch (error) {
             console.error("Failed to post the comment:", error);
         }
     };
+
+    useEffect(() => {
+        scrollToBottom();
+        setIsCommentSubmitted(false); // リセット
+    }, [isCommentSubmitted]);
 
     return (
         <>
@@ -58,15 +81,13 @@ const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecru
                         <div className={styles.modal} >
                             <div className={styles.modalContent}>
                                 <h2>コメント</h2>
-                                <div className={styles.comments}>
+                                <div className={styles.comments} ref={commentsContainerRef}>
                                     {selectedRecruitment.comments.map((comment) => (
                                         comment.user.id === userData.id ?
                                             <div
                                                 className={`${styles.comment} ${styles.myComment}`}
                                                 key={comment.id}
                                             >
-                                                {/* <img src={comment.user && comment.user.icon_path ? `${process.env.NEXT_PUBLIC_AWS_URL}${comment.user.icon_path}` : '/user_circle_icon.svg'} alt={comment.user ? comment.user.name : 'Unknown User'} /> */}
-
                                                 <div className={styles.commentContent}>
                                                     <p className={styles.commentText}>{comment.comment_text}</p>
                                                 </div>

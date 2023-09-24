@@ -1,5 +1,6 @@
 import React from 'react'
-import styles from '@/styles/components/recruitments/CommentButon.module.css'
+
+import styles from '@/styles/components/recruitments/CommentButton.module.css'
 
 
 const CommentButton = ({ recruitment, setIsCommentModalOpen, setSelectedRecruitment }) => {

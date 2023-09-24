@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import styles from '@/styles/tagEditor.module.css'
+import styles from '@/styles/components/Tags/TagEditor.module.css'
 
 import axios from "@/lib/axios";
 
-import TagSearchBar from '@/components/TagSearchBar'
-import TagDisplay from '@/components/TagDisplay'
+import TagSearchBar from '@/components/Tags/TagSearchBar'
+import TagDisplay from '@/components/Tags/TagDisplay'
 
 function TagEditor(props) {
 
@@ -18,12 +18,6 @@ function TagEditor(props) {
     const [isModified, setIsModified] = useState(false); // タグが編集されたかどうか
 
 
-    // userDataが変更された時だけselectedTagsを更新　↓一旦募集作成時ように削除　2023/09/13 ↓すでに作成している募集の編集の時に使えるかも
-    // useEffect(() => {
-    //     if (userData) {
-    //         setSelectedTags(userData.tags);
-    //     }
-    // }, [userData]);
 
     // コンポーネントマウント時に一度だけ全タグをフェッチ
     useEffect(() => {

@@ -1,0 +1,12 @@
+.recruitmentImagesContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.imageContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    overflow-x: auto;
+}

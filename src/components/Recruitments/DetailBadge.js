@@ -4,11 +4,11 @@ const DetailBadge = ({ label, from, to, unit }) => {
     return (
         <>
             {from && to ?
-                <p>{label}: {from} ~ {to}{unit}</p>
+                <p>募集{label}: {from} ~ {to}{unit}</p>
                 : from ?
-                    <p>{label}: {from}{unit} ~ </p>
+                    <p>募集{label}: {from}{unit} ~ </p>
                     : to ?
-                        <p>{label}:  ~ {to}{unit}</p>
+                        <p>募集{label}:  ~ {to}{unit}</p>
                         : null
             }
         </>

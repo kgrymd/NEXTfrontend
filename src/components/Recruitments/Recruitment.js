@@ -6,7 +6,7 @@ import styles from '@/styles/components/recruitments/Recruitment.module.css'
 import LikeButton from '@/components/Recruitments/LikeButton'
 import JoinButton from '@/components/Recruitments/JoinButton'
 import CommentButton from '@/components/Recruitments/CommentButton'
-import TagDisplay from '@/components/TagDisplay'
+import TagDisplay from '@/components/Tags/TagDisplay'
 import ReferenceURL from '@/components/Recruitments/ReferenceURL'
 import DetailBadge from '@/components/Recruitments/DetailBadge'
 import Participants from '@/components/Recruitments/Participants'
@@ -20,7 +20,7 @@ import YouTube from 'react-youtube';
 const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelectedRecruitment, toast, mutate }) => {
 
     // 各募集のいいね状態をトラックするためのstate
-    const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(recruitment.is_liked);
 
     const sliderSettings = {
         dots: false,  // スライダーの下にドットを表示するかどうか
@@ -43,6 +43,7 @@ const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelected
 
         <div key={recruitment.id} className={styles.card}>
 
+            {/* タイトルをタッチすると詳細ページに遷移 */}
             <Link href={`/recruitments/${recruitment.id}`}>
                 <div className={styles.info}>
                     <h2>{recruitment.title}</h2>
@@ -56,11 +57,11 @@ const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelected
                         <YouTube
                             videoId={getYouTubeID(recruitment.youtube_url)}
                             opts={{ width: '100%', height: 'auto' }}
-                        // onReady={(event) => event.target.pauseVideo()}
                         />
                     )}
                     {recruitment.images.map((image, index) => (
                         <div key={index}>
+                            {/* Todo: デフォルト画像ちゃんと設定する */}
                             <img src={image.image_path ? `${process.env.NEXT_PUBLIC_AWS_URL}${image.image_path}` : '/bakachinga.jpg'} alt={`Image ${index + 1}`} className={styles.image} />
                         </div>
                     ))}
@@ -77,13 +78,13 @@ const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelected
 
                 <DetailBadge from={recruitment.age_from} to={recruitment.age_to} label={"年齢"} unit={"歳"} />
                 <DetailBadge from={recruitment.min_people} to={recruitment.max_people} label={"人数"} unit={"人"} />
-                <DetailBadge from={recruitment.start_date} to={recruitment.end_date} label={"期間"} unit={""} />
 
                 <div className="flex flex-wrap gap-2">
                     <TagDisplay tags={recruitment?.tags} tagColor="lime" message="タグ未設定" />
                 </div>
 
                 <Participants userData={userData} recruitment={recruitment} />
+                <DetailBadge from={recruitment.start_date} to={recruitment.end_date} label={"期間"} unit={""} />
 
                 <LikeButton
                     liked={liked}

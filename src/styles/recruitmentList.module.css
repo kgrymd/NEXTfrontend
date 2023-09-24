@@ -6,71 +6,24 @@
     flex-direction: column;
     gap: 20px;
     background-color: rgb(50, 50, 50);
-    /* background-color: skyblue;
-    background-color: yellow;
-    background-color: rgb(255, 255, 122);
-    background-color: rgb(165, 210, 228);
-    background-color: #afb0ba; */
 }
-
-
-
-
-/* .container {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 4rem;
-} */
-
-/* .content {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-} */
-
-/* .header {
-    width: 100%; o
-    height: 3rem; o
-    background-color: rgba(243, 244, 246); o
-    border-collapse: collapse; o
-    display: flex; o
-    align-items: center; o
-    justify-content: center; o
-} */
 
 .header button {
     width: 50%;
     height: 3rem;
     border: 1px solid gray;
-    border: 1px solid gray;
-    /* background-color: rgb(250, 238, 215); */
     font-weight: bold;
     letter-spacing: 0.05em;
 }
-
-/* .header button:disabled {
-    background-color: rgb(190, 190, 190);
-} */
 
 .header {
     width: 100%;
     color: white;
     height: 3rem;
     position: fixed;
-    background-color: rgba(243, 244, 246);
-    background-color: rgb(255, 255, 122);
-    background-color: rgb(165, 210, 228);
-    background-color: black;
     background-color: rgb(30, 30, 30);
     top: 0;
     left: 0;
-    border-bottom: 1px solid rgb(209, 209, 209);
     border-collapse: collapse;
     display: flex;
     align-items: center;
@@ -78,53 +31,26 @@
     z-index: 30;
 }
 
-/* .header button {
-    width: 33.3333333%;
-    height: 3rem;
-    border: 1px solid gray;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-} */
-
 .header button:disabled {
-    /* background-color: slateblue; */
-    background-color: green;
     color: black;
-    background-color: rgb(74, 187, 232);
     background-color: #84cc16;
-    ;
 }
-
-
 
 .search {
     width: 10%;
     height: 6rem;
     position: fixed;
     top: 3rem;
-    /* left: 0; */
     right: 1rem;
     display: flex;
     align-items: center;
     justify-content: right;
-    /* background-color: rgba(243, 244, 246); */
-    /* border-bottom: 1px solid gray; */
     z-index: 30;
 }
 
-
-
 .card {
     position: relative;
-    background-color: #fff;
-    /* background-color: rgb(250, 238, 215);
-    background-color: #6699CC;
-    background-color: skyblue;
-    background-color: #6699CC;
-    background-color: #afb0ba;
-    background-color: rgb(174, 221, 239); */
     background-color: #e4e5f1;
-
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 15px;
@@ -172,58 +98,9 @@
     font-weight: bold;
 }
 
-
-
 .link:hover {
     text-decoration: underline;
 }
-
-/* ----------------------↓likebutton関係あとで消す(コンポーネント化)--------- */
-
-/* .likeButton {
-    border: none;
-    background-color: transparent;
-    background-color: none;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: color 0.3s;
-    color: white;
-    position: absolute;
-    right: 30px;
-    bottom: 150px;
-} */
-
-
-
-
-
-
-/* ----------------------↓likebutton関係あとで消す(コンポーネント化)--------- */
-.joinButton {
-    /* padding: 10px 15px; */
-    /* background-color: #007bff; */
-    background-color: transparent;
-    /* color: white; */
-    /* border-radius: 5px; */
-    cursor: pointer;
-
-    position: absolute;
-    right: 30px;
-    bottom: 8px;
-}
-
-
-/* ----------------------↓CommentModal関係あとで消す(コンポーネント化)--------- */
-
-
-
-
-
-
-
-
-
-
 
 .userName {
     font-weight: bold;

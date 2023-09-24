@@ -21,7 +21,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
     width: 90%;
     padding: 1rem 0;
@@ -56,22 +55,28 @@
 .ageBox {
     width: 90%;
     display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
+    flex-direction: column;
 }
 
 .ageBox input {
     width: 4rem;
-    margin: 0 0.3rem 0 1rem;
-    text-align: center;
     border-color: #bbbbbb;
 }
 
 .nameBox {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
+}
+
+.ageBox p,
+.nameBox p,
+.emailBox p {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    color: rgb(255, 100, 100);
+    display: flex;
+    align-items: flex-end;
 }
 
 .nameBox input {
@@ -80,10 +85,9 @@
 }
 
 .emailBox {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
 }
 
 .emailBox input {
@@ -92,15 +96,14 @@
 }
 
 .textBox {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
 }
 
 .textBox textarea {
     width: 100%;
-    height: 6rem;
+    height: 8rem;
     border-color: #bbbbbb;
 }
 
@@ -130,7 +133,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(0, 0, 0, 0.7); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -138,13 +140,21 @@
 }
 
 .modalContent {
-    background-color: #fff;
     background-color: lemonchiffon;
-    /* background-color: rgba(0, 0, 0, 0.3); */
     padding: 20px;
     border-radius: 10px;
     width: 80%;
     max-width: 500px;
     max-height: 80%;
     position: relative;
+}
+
+.label {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+.errorText {
+    color: #ff0000;
 }
