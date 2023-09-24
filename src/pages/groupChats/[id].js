@@ -29,11 +29,20 @@ const GroupChat = () => {
 
     if (userError || groupChatError) console.error("Error fetching the data:", userError || groupChatError);
 
+    const [lastTimestamp, setLastTimestamp] = useState(null);
 
-    // 2秒おきにメッセージを再フェッチする
-    const { data: messages, mutate } = useSWR(`/api/chat-groups/${id}/messages`, fetcher, {
-        refreshInterval: 2000 // 2秒
-    });
+
+    const { data: messages, mutate } = useSWR(
+        lastTimestamp ? `/api/chat-groups/${id}/messages/polling?ts=${lastTimestamp}` : `/api/chat-groups/${id}/messages`,
+
+        fetcher,
+        {
+            refreshInterval: 5000
+        }
+    );
+
+
+    const [allMessages, setAllMessages] = useState([]); // 追加
 
 
     const [newMessage, setNewMessage] = useState("")
@@ -80,6 +89,19 @@ const GroupChat = () => {
     }, [messages]);
 
 
+    useEffect(() => {
+        if (messages && messages.length) {
+            setLastTimestamp(messages[messages.length - 1].ts);
+        }
+    }, [messages]);
+
+    useEffect(() => {
+        if (messages) {
+            setAllMessages(prevMessages => [...prevMessages, ...messages]);
+        }
+    }, [messages]);
+
+
     return (
         <Layout>
             <Header headerTitle={groupChat?.name ? groupChat.name : null} chat={true}>
@@ -90,7 +112,7 @@ const GroupChat = () => {
                     <div className={styles.chatContent}>
                         {/* {groupChat && <h2>{groupChat.name}</h2>} */}
                         <div className={styles.messages} ref={messagesContainerRef}>
-                            {messages && messages.map((message) => (
+                            {allMessages && allMessages.map((message) => (
 
                                 message.user.id === userData.id ?
                                     <div
