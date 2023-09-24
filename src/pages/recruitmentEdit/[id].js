@@ -222,7 +222,7 @@ const RecruitmentEdit = () => {
                     />
 
                     <div className={styles.formName}>
-                        <h2>募集の年齢範囲</h2>
+                        <h2>募集年齢</h2>
                     </div>
                     <div className={styles.range}>
                         <input
@@ -268,7 +268,7 @@ const RecruitmentEdit = () => {
                     </div>
 
                     <div className={styles.formName}>
-                        <h2>開始日</h2>
+                        <h2>募集開始日</h2>
                     </div>
                     <input
                         type="date"
@@ -279,7 +279,7 @@ const RecruitmentEdit = () => {
                     />
 
                     <div className={styles.formName}>
-                        <h2>終了日</h2>
+                        <h2>募集終了日</h2>
                     </div>
                     <input
                         type="date"
