@@ -33,7 +33,6 @@ const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecru
     const handleCommentSubmit = async () => {
         try {
             const response = await axios.post('/api/comments', {
-                user_id: userData.id,
                 recruitment_id: selectedRecruitment.id,
                 comment_text: newComment
             });
