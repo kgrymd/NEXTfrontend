@@ -107,9 +107,13 @@ const RecruitmentCreation = () => {
             }
         } catch (error) {
             if (error.response) {
-                setMessage(
-                    `エラーが発生しました。ステータスコード: ${error.response.status}`,
-                )
+                if (error.response.status === 422) {
+                    setMessage('バリデーションエラーが発生しました。必須項目、画像サイズ、urlが適切か確認してください。')
+                } else {
+                    setMessage(
+                        `エラーが発生しました。ステータスコード: ${error.response.status}`,
+                    )
+                }
             } else if (error.request) {
                 setMessage('サーバからレスポンスがありませんでした。')
             } else {
@@ -165,6 +169,7 @@ const RecruitmentCreation = () => {
                     />
                     <div className={styles.formName}>
                         <h2>画像を追加</h2>
+                        <p>1ファイル2MBまで</p>
                     </div>
                     <RecruitmentCreationImages
                         recruitmentForm={recruitmentForm}
