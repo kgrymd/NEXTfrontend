@@ -1,0 +1,107 @@
+.container {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgb(50, 50, 50);
+}
+
+.header button {
+    width: 50%;
+    height: 3rem;
+    border: 1px solid gray;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+.header {
+    width: 100%;
+    color: white;
+    height: 3rem;
+    position: fixed;
+    background-color: rgb(30, 30, 30);
+    top: 0;
+    left: 0;
+    border-collapse: collapse;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+}
+
+.header button:disabled {
+    color: black;
+    background-color: #84cc16;
+}
+
+.search {
+    width: 10%;
+    height: 6rem;
+    position: fixed;
+    top: 3rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    z-index: 30;
+}
+
+.card {
+    position: relative;
+    background-color: #e4e5f1;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.info {
+    margin-top: 10px;
+}
+
+.info h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.info p {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.iconContainer {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.link {
+    margin-top: 10px;
+    color: #0070f3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.userName {
+    font-weight: bold;
+}

@@ -1,0 +1,7 @@
+.joinButton {
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute;
+    right: 30px;
+    bottom: 16px;
+}

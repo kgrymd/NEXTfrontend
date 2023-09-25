@@ -1,0 +1,11 @@
+.prefectureBox {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.formName h2 {
+    font-weight: bold;
+    font-size: 1.1rem;
+}

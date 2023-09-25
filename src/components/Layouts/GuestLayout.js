@@ -4,7 +4,7 @@ const GuestLayout = ({ children }) => {
     return (
         <div>
             <Head>
-                <title>NEXT</title>
+                <title>NEXT(New Experience Together)</title>
             </Head>
 
             <div className="font-sans text-gray-900 antialiased">

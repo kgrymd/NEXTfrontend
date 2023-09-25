@@ -1,0 +1,183 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(30, 30, 30);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4rem;
+    border-bottom: 1px solid gray;
+    z-index: 1000;
+}
+
+.header h1 {
+    font-size: 1.5rem;
+}
+
+.flexContainer {
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexContainer p {
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.content {
+    width: 95%;
+    height: 100vh;
+}
+
+.formName {
+    display: flex;
+}
+
+.formName h2 {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+.formName p {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    color: rgb(255, 100, 100);
+    display: flex;
+    align-items: flex-end;
+}
+
+.itemContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.itemCardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+}
+
+.buttonBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.itemCardButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #2d3748;
+    cursor: pointer;
+    width: 10rem;
+    margin: 1rem 0;
+}
+
+.createButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background-color: #84cc16;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    width: 12rem;
+    margin: 1rem 0;
+}
+
+.createButton:disabled {
+    background: #ccc;
+}
+
+
+.errorText {
+    color: #ff0000;
+}
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modalContent {
+    background-color: lemonchiffon;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    max-height: 80%;
+    position: relative;
+}
+
+.range {
+    display: flex;
+    align-items: center;
+}
+
+.inputTitle,
+.inputURL {
+    width: 100%;
+}
+
+.inputAge,
+.inputPeople {
+    width: 40%;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.inputDate {
+    width: 100%;
+    padding: 0.5rem 1rem;
+}

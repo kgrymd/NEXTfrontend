@@ -1,0 +1,173 @@
+.chat {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* スライドのアニメーション定義 */
+@keyframes slide {
+    from {
+        transform: translateX(100%);
+        /* 開始時には完全に画面の外(下)にある */
+    }
+
+    to {
+        transform: translateX(0);
+        /* 終了時には元の位置に戻る */
+    }
+}
+
+.chatContent {
+    color: green;
+    background-color: #c9cad4;
+    padding: 20px;
+    width: 100%;
+    height: 94vh;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    box-sizing: border-box;
+    /* 追加: paddingを含む全体の幅を指定されたwidthに合わせる */
+    animation: slide 0.1s ease-out;
+    /* アニメーションの適用 */
+}
+
+.messages {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 75vh;
+    overflow-y: auto;
+    /* 縦方向のスクロールを有効にする */
+    padding: 10px;
+    /* 内側のスペースを追加 */
+    background-color: rgb(75, 75, 75);
+    border-radius: 10px 10px 0 0;
+}
+
+.message img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.messageText {
+    margin: 5px 0 0;
+}
+
+.myMessage {
+    /* 右側に表示するためのスタイルを追加 */
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    align-self: flex-end;
+}
+
+.otherMessage {
+    /* 左側に表示するためのスタイルを追加 */
+    justify-content: flex-start;
+}
+
+.messageInputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgb(75, 75, 75);
+    border-radius: 0 0 10px 10px;
+}
+
+.messageInput {
+    color: black;
+    flex-grow: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    margin-right: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    transition: box-shadow 0.2s ease-in-out;
+    background-color: #f7f7f7;
+}
+
+.messageInput:focus {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.messageSubmitButton {
+    background-color: #84cc16;
+    font-weight: bold;
+    color: black;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.messageSubmitButton:hover {
+    background-color: #0056b3;
+}
+
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.otherMessage .messageContent {
+    position: relative;
+    padding: 10px;
+    border-radius: 10px;
+    /* 吹き出しの丸み */
+    background-color: #f5f5f5;
+    /* 吹き出しの背景色 */
+    margin-right: auto;
+    /* 要素を左側に寄せる */
+}
+
+.otherMessage .messageContent::before {
+    /* 吹き出しの尖った部分を作成 */
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-right: 10px solid #f5f5f5;
+    /* 吹き出しの背景色と同じに */
+}
+
+.myMessage .messageContent {
+    position: relative;
+    padding: 10px;
+    border-radius: 10px;
+    /* 吹き出しの丸み */
+    background-color: #d9f99d;
+    margin-left: auto;
+    /* 要素を右側に寄せる */
+}
+
+.myMessage .messageContent::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 10px solid #d9f99d;
+}
+
+.messageContent {
+    max-width: 64vw;
+    word-wrap: break-word;
+}
