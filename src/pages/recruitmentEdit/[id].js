@@ -149,6 +149,8 @@ const RecruitmentEdit = () => {
             if (error.response) {
                 if (error.response.status === 422) {
                     setMessage('バリデーションエラーが発生しました。必須項目、画像サイズ、urlが適切か確認してください。')
+                } else if (error.response.status === 403) {
+                    setMessage(`募集の作成者以外編集はできません。`)
                 } else {
                     setMessage(
                         `エラーが発生しました。ステータスコード: ${error.response.status}`,
