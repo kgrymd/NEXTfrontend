@@ -91,6 +91,15 @@ const RecruitmentEdit = () => {
 
     const submit = async e => {
         e.preventDefault()
+
+        // 必須項目のチェック
+        if (!validateRequiredFields()) {
+            setMessage('必須項目を全て入力してください');
+            return; // ここでsubmit関数を終了
+        }
+
+
+
         const data = new FormData()
 
         data.append('title', recruitmentForm.title)
@@ -154,6 +163,16 @@ const RecruitmentEdit = () => {
 
     }
 
+    const validateRequiredFields = () => {
+        const requiredFields = ["title", "end_date", "start_date"];
+        for (const field of requiredFields) {
+            if (!recruitmentForm[field]) {
+                return false;
+            }
+        }
+        return true;
+    };
+
 
     return (
         <Layout>
@@ -166,6 +185,7 @@ const RecruitmentEdit = () => {
                 <div className={styles.content}>
                     <div className={styles.formName}>
                         <h2>タイトル</h2>
+                        <p>必須</p>
                     </div>
                     <input
                         type="text"
@@ -188,6 +208,7 @@ const RecruitmentEdit = () => {
                     />
                     <div className={styles.formName}>
                         <h2>画像を追加</h2>
+                        <p>1ファイル2MBまで</p>
                     </div>
                     <RecruitmentEditImages
                         recruitmentForm={recruitmentForm}
@@ -273,6 +294,7 @@ const RecruitmentEdit = () => {
 
                     <div className={styles.formName}>
                         <h2>募集開始日</h2>
+                        <p>必須</p>
                     </div>
                     <input
                         type="date"
@@ -284,6 +306,7 @@ const RecruitmentEdit = () => {
 
                     <div className={styles.formName}>
                         <h2>募集終了日</h2>
+                        <p>必須</p>
                     </div>
                     <input
                         type="date"
