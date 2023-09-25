@@ -94,14 +94,14 @@ const RecruitmentEdit = () => {
         const data = new FormData()
 
         data.append('title', recruitmentForm.title)
-        data.append('description', recruitmentForm.description)
-        data.append('youtube_url', recruitmentForm.youtube_url)
-        data.append('reference_url', recruitmentForm.reference_url)
-        data.append('prefecture_id', selectedPrefecture)
-        data.append('age_from', recruitmentForm.age_from)
-        data.append('age_to', recruitmentForm.age_to)
-        data.append('min_people', recruitmentForm.min_people)
-        data.append('max_people', recruitmentForm.max_people)
+        recruitmentForm.description && data.append('description', recruitmentForm.description)
+        recruitmentForm.youtube_url && data.append('youtube_url', recruitmentForm.youtube_url)
+        recruitmentForm.reference_url && data.append('reference_url', recruitmentForm.reference_url)
+        selectedPrefecture && data.append('prefecture_id', selectedPrefecture)
+        recruitmentForm.age_from && data.append('age_from', recruitmentForm.age_from)
+        recruitmentForm.age_to && data.append('age_to', recruitmentForm.age_to)
+        recruitmentForm.min_people && data.append('min_people', recruitmentForm.min_people)
+        recruitmentForm.max_people && data.append('max_people', recruitmentForm.max_people)
         data.append('start_date', recruitmentForm.start_date)
         data.append('end_date', recruitmentForm.end_date)
 
@@ -138,9 +138,13 @@ const RecruitmentEdit = () => {
             }
         } catch (error) {
             if (error.response) {
-                setMessage(
-                    `エラーが発生しました。ステータスコード: ${error.response.status}`,
-                )
+                if (error.response.status === 422) {
+                    setMessage('バリデーションエラーが発生しました。必須項目、画像サイズ、urlが適切か確認してください。')
+                } else {
+                    setMessage(
+                        `エラーが発生しました。ステータスコード: ${error.response.status}`,
+                    )
+                }
             } else if (error.request) {
                 setMessage('サーバからレスポンスがありませんでした。')
             } else {
