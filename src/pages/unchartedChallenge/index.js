@@ -19,6 +19,9 @@ const UnchartedChallenge = () => {
 
         <Layout>
             <Header headerTitle={'UnchartedChallenge'} />
+            <div className='mt-32'>
+                <h2>テスト</h2>
+            </div>
 
 
             <FooterTabBar user={userData} />
