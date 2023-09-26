@@ -1,6 +1,6 @@
 import React from 'react'
 
-import styles from '@/styles/components/recruitmentCreation/recruitmentCreationImages.module.css'
+import styles from '@/styles/components/recruitmentCreation/RecruitmentCreationImages.module.css'
 
 import RecruitmentEditImage from '../RecruitmentEdit/RecruitmentEditImage.js'
 import RecruitmentCreationDefaultImage from '../RecruitmentCreation/RecruitmentCreationDefaultImage.js'
