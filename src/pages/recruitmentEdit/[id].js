@@ -32,6 +32,8 @@ const RecruitmentEdit = () => {
 
     if (recruitmentDataError || prefecturesError) console.error("Error fetching the data:", recruitmentDataError || prefecturesError);
 
+    const [loading, setLoading] = useState(false);
+
     const [selectedPrefecture, setSelectedPrefecture] = useState(recruitmentData?.prefecture_id || 1);
     const [message, setMessage] = useState('')
     // モーダル表示のためのState
@@ -91,6 +93,8 @@ const RecruitmentEdit = () => {
 
     const submit = async e => {
         e.preventDefault()
+
+        setLoading(true); // 送信開始
 
         // 必須項目のチェック
         if (!validateRequiredFields()) {
@@ -161,6 +165,8 @@ const RecruitmentEdit = () => {
             } else {
                 setMessage('エラーが発生しました。')
             }
+        } finally {
+            setLoading(false); // 送信終了
         }
 
     }
@@ -181,6 +187,11 @@ const RecruitmentEdit = () => {
             <Head>
                 <title>Recruitment creation page</title>
             </Head>
+            {loading && ( // ローディング状態であればGIFを表示
+                <div className={styles.loadingOverlay}>
+                    <img src="/loading.gif" alt="Loading..." />
+                </div>
+            )}
             <Header headerTitle="募集編集" />
 
             <div className={styles.container}>
