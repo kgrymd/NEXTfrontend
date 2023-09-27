@@ -1,0 +1,33 @@
+.buttonBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem 0;
+}
+
+.createButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background-color: #84cc16;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    width: 12rem;
+    margin: 1rem 0;
+}
+
+.createButton:disabled {
+    background: #ccc;
+}
+
+
+.errorText {
+    color: #ff0000;
+}
