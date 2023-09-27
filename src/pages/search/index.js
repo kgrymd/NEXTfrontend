@@ -14,9 +14,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import axios from '@/lib/axios'
+import { useAuth } from '@/hooks/auth'
+
 
 
 export default function RecruitmentList() {
+
+    const { user } = useAuth({ middleware: 'auth' })
 
     const [searchKeyword, setSearchKeyword] = useState("");
     const [recruitments, setRecruitments] = useState([]);
