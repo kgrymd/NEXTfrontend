@@ -37,7 +37,7 @@ const GroupChat = () => {
 
         fetcher,
         {
-            refreshInterval: 5000
+            refreshInterval: 2000
         }
     );
 
