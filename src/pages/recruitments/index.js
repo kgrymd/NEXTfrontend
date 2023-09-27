@@ -15,9 +15,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from 'next/link'
 
+import { useAuth } from '@/hooks/auth';
 
 
 export default function RecruitmentList() {
+
+    const { user, logout } = useAuth({ middleware: 'auth' });
+
 
     // おすすめと新着どちらで表示するかのstate
     const [rule, setRule] = useState(true)
