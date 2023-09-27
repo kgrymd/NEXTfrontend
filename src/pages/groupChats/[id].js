@@ -103,7 +103,7 @@ const GroupChat = () => {
 
 
     return (
-        <Layout>
+        <Layout bgc='#c9cad4'>
             <Header headerTitle={groupChat?.name ? groupChat.name : null} chat={true}>
                 <Head>
                     <title>Group Chat</title>
