@@ -33,6 +33,7 @@ const Edit = () => {
 
     if (prefectureError || userError) console.error("Error fetching the data:", prefectureError || userError);
 
+    const [loading, setLoading] = useState(false);
 
     // ユーザーが都道府県を設定していればその都道府県で、設定していなかったら1(未設定)をセット
     const [selectedPrefecture, setSelectedPrefecture] = useState(user?.prefecture_id || 1);
@@ -89,6 +90,8 @@ const Edit = () => {
     const submit = async e => {
         e.preventDefault()
 
+        setLoading(true); // 送信開始
+
         // 必須項目のチェック
         if (!validateRequiredFields()) {
             setMessage('必須項目を全て入力してください');
@@ -126,6 +129,8 @@ const Edit = () => {
             }
         } catch (error) {
             console.error('保存に失敗しました。:', error);
+        } finally {
+            setLoading(false); // 送信終了
         }
     }
 
@@ -151,6 +156,11 @@ const Edit = () => {
                 <Head>
                     <title>Profile Edit</title>
                 </Head>
+                {loading && ( // ローディング状態であればGIFを表示
+                    <div className={styles.loadingOverlay}>
+                        <img src="/loading.gif" alt="Loading..." />
+                    </div>
+                )}
                 <div className={styles.container}>
                     <div className={styles.content}>
                         <form className={styles.form}>
