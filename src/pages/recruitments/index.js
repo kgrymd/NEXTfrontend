@@ -44,7 +44,12 @@ export default function RecruitmentList() {
 
     if (userError) console.error('ユーザーデータの取得に失敗しました。:', userError);
     if (recruitmentsError) return <div>データの読み込みに失敗しました</div>
-    if (!recruitments) return <div>ロード中...</div>
+    // if (!recruitments) return <div>ロード中...</div>
+    if (!recruitments) return (
+        <div className={styles.loadingOverlay}>
+            <img src="/loading.gif" alt="Loading..." />
+        </div>
+    )
 
 
     console.log(recruitments);
