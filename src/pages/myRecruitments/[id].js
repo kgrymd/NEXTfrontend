@@ -37,7 +37,11 @@ const RecruitmentShow = () => {
 
     if (userError) console.error('ユーザーデータの取得に失敗しました。:', userError);
     if (recruitmentError) return <div>データの読み込みに失敗しました</div>
-    if (!recruitment) return <div>ロード中...</div>
+    if (!recruitment) return (
+        <div className={styles.loadingOverlay}>
+            <img src="/loading.gif" alt="Loading..." />
+        </div>
+    )
 
 
 
