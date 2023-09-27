@@ -10,10 +10,13 @@ import Image from "@/components/Image";
 import FooterTabBar from "@/components/FooterTabBar";
 import TagDisplay from "@/components/Tags/TagDisplay";
 
+import { useAuth } from '@/hooks/auth'
 
 
 
 const UserProfile = () => {
+
+    const { user } = useAuth({ middleware: 'auth' })
 
     const { data: userData, error } = useSWR('/api/me', () =>
         axios
