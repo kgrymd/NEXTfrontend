@@ -26,6 +26,7 @@ const RecruitmentCreation = () => {
     const { data: prefectures, error } = useSWR('/api/prefectures', fetcher);
     if (error) console.error('prefecturesの取得に失敗しました。:', error);
 
+    const [loading, setLoading] = useState(false);
 
     const [selectedPrefecture, setSelectedPrefecture] = useState(user?.prefecture_id || 1);
     const [message, setMessage] = useState('')
@@ -65,6 +66,8 @@ const RecruitmentCreation = () => {
 
     const submit = async e => {
         e.preventDefault()
+
+        setLoading(true); // 送信開始
 
         // 必須項目のチェック
         if (!validateRequiredFields()) {
@@ -119,6 +122,8 @@ const RecruitmentCreation = () => {
             } else {
                 setMessage('エラーが発生しました。')
             }
+        } finally {
+            setLoading(false); // 送信終了
         }
 
     }
@@ -140,6 +145,11 @@ const RecruitmentCreation = () => {
             <Head>
                 <title>Recruitment creation page</title>
             </Head>
+            {loading && ( // ローディング状態であればGIFを表示
+                <div className={styles.loadingOverlay}>
+                    <img src="/loading.gif" alt="Loading..." />
+                </div>
+            )}
             <div className={styles.container}>
                 <div className={styles.content}>
                     {/* ページコンテンツ */}
