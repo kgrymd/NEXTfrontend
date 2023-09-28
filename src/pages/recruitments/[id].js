@@ -52,6 +52,10 @@ const RecruitmentShow = () => {
             <Header />
             <Head>
                 <title>{recruitment && recruitment.title} - NEXT</title>
+                <meta property="og:title" content={recruitment && recruitment.title} />
+                <meta property="og:description" content={recruitment && recruitment.description} />
+                <meta property="og:image" content={recruitment && recruitment.images && recruitment.images[0].image_path} />
+                <meta property="og:url" content={typeof window !== 'undefined' && window.location.href} />
             </Head>
             {/* ヘッダー分の余白（仮） */}
             <div className='mt-16'></div>
