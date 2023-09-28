@@ -54,7 +54,7 @@ const RecruitmentShow = () => {
                 <title>{recruitment && recruitment.title} - NEXT</title>
                 <meta property="og:title" content={recruitment && recruitment.title} />
                 <meta property="og:description" content={recruitment && recruitment.description} />
-                <meta property="og:image" content={recruitment && recruitment.images && recruitment.images[0].image_path} />
+                <meta property="og:image" content={recruitment && recruitment.images && `${process.env.NEXT_PUBLIC_AWS_URL}${recruitment.images[0].image_path}`} />
                 <meta property="og:url" content={typeof window !== 'undefined' && window.location.href} />
             </Head>
             {/* ヘッダー分の余白（仮） */}
