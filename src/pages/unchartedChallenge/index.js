@@ -14,7 +14,7 @@ const UnchartedChallenge = () => {
         throw error.response.data;
     });
 
-    const { data: userData, error: userError } = useSWR('/api/me', fetcher);
+    const { data: userData, error: userError, mutate } = useSWR('/api/me', fetcher);
 
     if (userError) console.error('ユーザーデータの取得に失敗しました。:', userError);
 
@@ -28,39 +28,37 @@ const UnchartedChallenge = () => {
             if (response.data.success) {
                 console.log("参加成功!");
             }
+            mutate()
         } catch (error) {
             console.error("参加失敗:", error);
         }
     }
 
-
+    console.log(userData)
 
 
     return (
-
         <Layout>
             <Header headerTitle={'UnchartedChallenge'} />
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-8">
-                    <h2>毎月1日に4人1組のチャットグループが作られます。</h2>
-                    <h2>4人ともやったことのないことに1ヶ月間チャレンジしてみましょう！</h2>
-
+                <div className={styles.contentContainer}>
+                    <h2>やったことのないことに挑戦しよう！</h2>
+                    <p>毎月1日に、あなたを含む4人のグループを作成します。</p>
+                    <p>4人で話し合い、4人全員やったことのない新しいチャレンジを一緒に始めましょう！</p>
                     <div className={styles.buttonBox}>
-
-                        {/* <p className={styles.errorText}>{message}</p> */}
-                        <button
-                            className={styles.createButton}
-                            onClick={handleJoin}
-                        >
-                            来月チャレンジに参加する！
-                        </button>
+                        {userData &&
+                            <button
+                                className={userData.uncharted_challenge == 0 ? styles.joinButton : styles.leaveButton}
+                                onClick={handleJoin}
+                            >
+                                {userData.uncharted_challenge == 0 ? '来月参加する！' : '来月の参加をやめる'}
+                            </button>
+                        }
                     </div>
-                    <h2>今月のチャレンジ</h2>
+                    <h2>今月のチャレンジのグループチャット</h2>
+                    <p>ここにグループチャットのリンクが入る</p>
                 </div>
             </div>
-
-
-
             <FooterTabBar user={userData} />
         </Layout>
     )
