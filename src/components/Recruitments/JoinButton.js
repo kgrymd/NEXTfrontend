@@ -9,6 +9,11 @@ const JoinButton = ({ userData, recruitment, setSelectedRecruitment, toast, muta
 
     const joinRecruitment = async (recruitment) => {
 
+        if (!userData) { // もしユーザーがログインしていない場合
+            window.location.href = '/login'; // ログインページにリダイレクトします
+            return;
+        }
+
         setSelectedRecruitment(recruitment);
         try {
             const response = await axios.post('/api/participants', {
