@@ -31,6 +31,9 @@ const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecru
     }
 
     const handleCommentSubmit = async () => {
+
+
+
         try {
             const response = await axios.post('/api/comments', {
                 recruitment_id: selectedRecruitment.id,
@@ -50,8 +53,8 @@ const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecru
                 }));
 
                 setNewComment("");
-                mutate()
 
+                mutate()
                 setIsCommentSubmitted(true); // コメントが送信されたことを示す
 
 
@@ -82,7 +85,7 @@ const CommentModal = ({ isCommentModalOpen, setIsCommentModalOpen, selectedRecru
                                 <h2>コメント</h2>
                                 <div className={styles.comments} ref={commentsContainerRef}>
                                     {selectedRecruitment.comments.map((comment) => (
-                                        comment.user.id === userData.id ?
+                                        comment.user.id === userData?.id ?
                                             <div
                                                 className={`${styles.comment} ${styles.myComment}`}
                                                 key={comment.id}
