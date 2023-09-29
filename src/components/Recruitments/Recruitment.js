@@ -90,12 +90,14 @@ const Recruitment = ({ userData, recruitment, setIsCommentModalOpen, setSelected
                     liked={liked}
                     recruitment={recruitment}
                     setLiked={setLiked}
+                    userData={userData}
                 />
 
                 <CommentButton
                     recruitment={recruitment}
                     setIsCommentModalOpen={setIsCommentModalOpen}
                     setSelectedRecruitment={setSelectedRecruitment}
+                    userData={userData}
                 />
 
                 <JoinButton
