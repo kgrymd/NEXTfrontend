@@ -54,6 +54,7 @@ const RecruitmentShow = () => {
             <Header />
             <Head>
                 <title>{recruitment && recruitment.title} - NEXT</title>
+
             </Head>
             {/* ヘッダー分の余白（仮） */}
             <div className='mt-16'></div>
