@@ -3,10 +3,16 @@ import React from 'react'
 import styles from '@/styles/components/recruitments/CommentButton.module.css'
 
 
-const CommentButton = ({ recruitment, setIsCommentModalOpen, setSelectedRecruitment }) => {
+const CommentButton = ({ recruitment, setIsCommentModalOpen, setSelectedRecruitment, userData }) => {
 
     // コメントモーダルを開く関数
     const handleOpenCommentModal = (recruitment) => {
+
+        if (!userData) { // もしユーザーがログインしていない場合
+            window.location.href = '/login'; // ログインページにリダイレクトします
+            return;
+        }
+
         setIsCommentModalOpen(true);
         setSelectedRecruitment(recruitment);
     };

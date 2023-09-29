@@ -14,6 +14,8 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 
 import axios from "@/lib/axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const RecruitmentShow = () => {
@@ -65,6 +67,8 @@ const RecruitmentShow = () => {
                     setIsCommentModalOpen={setIsCommentModalOpen}
                     selectedRecruitment={selectedRecruitment}
                     setSelectedRecruitment={setSelectedRecruitment}
+                    mutate={mutate}
+                    toast={toast}
                 />
             </div>
             <div className="flex justify-center mt-4">
@@ -89,6 +93,7 @@ const RecruitmentShow = () => {
                 userData={userData}
                 mutate={mutate}
             />
+            <ToastContainer />
         </ Layout >
     )
 }
