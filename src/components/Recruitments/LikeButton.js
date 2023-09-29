@@ -6,10 +6,16 @@ import LikeIcon from './LikeIcon'
 
 import axios from '@/lib/axios'
 
-const LikeButton = ({ liked, recruitment, setLiked }) => {
+const LikeButton = ({ liked, recruitment, setLiked, userData }) => {
 
 
     const handleLikeClick = async (recruitmentId) => {
+
+        if (!userData) { // もしユーザーがログインしていない場合
+            window.location.href = '/login'; // ログインページにリダイレクトします
+            return;
+        }
+
         setLiked(prevState => !prevState);
 
         if (liked) {
