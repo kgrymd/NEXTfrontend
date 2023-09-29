@@ -156,6 +156,13 @@ const Navigation = ({ user }) => {
                             </ResponsiveNavButton>
                             <ResponsiveNavButton>
                                 <Link
+                                    href="/unchartedChallenge/history"
+                                    active={router.pathname === '/unchartedChallenge/history'}>
+                                    過去のチャレンジ
+                                </Link>
+                            </ResponsiveNavButton>
+                            <ResponsiveNavButton>
+                                <Link
                                     href="/myRecruitments/likedRecruitments"
                                     active={router.pathname === '/myRecruitments/likedRecruitments'}>
                                     お気に入りした募集
