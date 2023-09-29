@@ -7,6 +7,7 @@ import styles from '@/styles/unchartedChallenge.module.css';
 import FooterTabBar from '@/components/FooterTabBar'
 
 import axios from '@/lib/axios';
+import Link from 'next/link';
 
 const UnchartedChallenge = () => {
 
@@ -15,8 +16,9 @@ const UnchartedChallenge = () => {
     });
 
     const { data: userData, error: userError, mutate } = useSWR('/api/me', fetcher);
+    const { data: unchartedChallenge, error: unchartedChallengeError } = useSWR('/api/my/currentUnchartedChallenge', fetcher);
 
-    if (userError) console.error('ユーザーデータの取得に失敗しました。:', userError);
+    if (userError || unchartedChallengeError) console.error("Error fetching the data:", userError || unchartedChallengeError);
 
 
 
@@ -55,8 +57,15 @@ const UnchartedChallenge = () => {
                             </button>
                         }
                     </div>
-                    <h2>今月のチャレンジのグループチャット</h2>
-                    <p>ここにグループチャットのリンクが入る</p>
+                    <h2 className="mt-8" >今月のチャレンジ</h2>
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg" key={unchartedChallenge?.id}>
+                        {/* ダイナミックルートへのリンクを設定 */}
+                        <Link href={`/groupChats/${unchartedChallenge?.uuid}`}>
+                            <h2 className="p-6 text-2xl bg-white border-b border-gray-200">
+                                {unchartedChallenge?.name}
+                            </h2>
+                        </Link>
+                    </div>
                 </div>
             </div>
             <FooterTabBar user={userData} />
