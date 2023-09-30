@@ -83,6 +83,34 @@ const Navigation = ({ user }) => {
                             <DropdownButton onClick={logout}>
                                 Logout
                             </DropdownButton>
+                            <DropdownButton onClick={logout}>
+                                <Link
+                                    href="/unchartedChallenge/history"
+                                    active={router.pathname === '/unchartedChallenge/history'}>
+                                    過去のチャレンジ
+                                </Link>
+                            </DropdownButton>
+                            <DropdownButton onClick={logout}>
+                                <Link
+                                    href="/myRecruitments/likedRecruitments"
+                                    active={router.pathname === '/myRecruitments/likedRecruitments'}>
+                                    お気に入りした募集
+                                </Link>
+                            </DropdownButton>
+                            <DropdownButton onClick={logout}>
+                                <Link
+                                    href="/myRecruitments/joinedRecruitments"
+                                    active={router.pathname === '/myRecruitments/joinedRecruitments'}>
+                                    参加した募集
+                                </Link>
+                            </DropdownButton>
+                            <DropdownButton onClick={logout}>
+                                <Link
+                                    href="/myRecruitments/createdRecruitments"
+                                    active={router.pathname === '/myRecruitments/createdRecruitments'}>
+                                    作成した募集
+                                </Link>
+                            </DropdownButton>
 
                         </Dropdown>
                     </div>
