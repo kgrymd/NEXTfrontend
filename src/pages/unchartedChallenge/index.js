@@ -1,13 +1,14 @@
 import Header from '@/components/Header';
 import Layout from '@/components/Layouts/Layout';
 import useSWR from "swr";
+import Link from 'next/link';
 
 import styles from '@/styles/unchartedChallenge.module.css';
 
 import FooterTabBar from '@/components/FooterTabBar'
+import Image from '@/components/Image';
 
 import axios from '@/lib/axios';
-import Link from 'next/link';
 
 const UnchartedChallenge = () => {
 
@@ -65,6 +66,32 @@ const UnchartedChallenge = () => {
                                 {unchartedChallenge?.name}
                             </h2>
                         </Link>
+                    </div>
+                    <p className='mt-4'>メンバー:</p>
+                    <div className={styles.iconContainer}>
+                        {
+                            unchartedChallenge && unchartedChallenge.users.map(user => (
+                                <>
+                                    {userData?.id === user.id ?
+                                        <Link href={'/profile'}>
+                                            <Image
+                                                src={user.icon_path}
+                                                alt={user.name}
+                                                style={styles.icon}
+                                            />
+                                        </Link >
+                                        :
+                                        <Link href={`/profile/${user.id}`}>
+                                            <Image
+                                                src={user.icon_path}
+                                                alt={user.name}
+                                                style={styles.icon}
+                                            />
+                                        </Link>
+                                    }
+                                </>
+                            ))
+                        }
                     </div>
 
                 </div>
