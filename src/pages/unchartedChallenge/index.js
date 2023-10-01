@@ -76,7 +76,7 @@ const UnchartedChallenge = () => {
                                         <Link href={'/profile'}>
                                             <Image
                                                 src={user.icon_path}
-                                                alt={user.name}
+                                                alt="ユーザーアイコン"
                                                 style={styles.icon}
                                             />
                                         </Link >
@@ -84,7 +84,7 @@ const UnchartedChallenge = () => {
                                         <Link href={`/profile/${user.id}`}>
                                             <Image
                                                 src={user.icon_path}
-                                                alt={user.name}
+                                                alt="ユーザーアイコン"
                                                 style={styles.icon}
                                             />
                                         </Link>
