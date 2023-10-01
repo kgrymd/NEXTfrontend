@@ -1,13 +1,14 @@
 import Header from '@/components/Header';
 import Layout from '@/components/Layouts/Layout';
 import useSWR from "swr";
+import Link from 'next/link';
 
 import styles from '@/styles/unchartedChallenge.module.css';
 
 import FooterTabBar from '@/components/FooterTabBar'
+import Image from '@/components/Image';
 
 import axios from '@/lib/axios';
-import Link from 'next/link';
 
 const UnchartedChallenge = () => {
 
@@ -45,8 +46,8 @@ const UnchartedChallenge = () => {
             <div className="py-12">
                 <div className={styles.contentContainer}>
                     <h2>やったことのないことに挑戦しよう！</h2>
-                    <p>毎月1日に、あなたを含む4人のグループを作成します。</p>
-                    <p>4人で話し合い、4人全員やったことのない新しいチャレンジを一緒に始めましょう！</p>
+                    <p>毎月1日に、あなたを含む4人1組を基本とするグループを作成します。</p>
+                    <p>皆で話し合い、全員やったことのない新しいチャレンジを一緒に始めましょう！</p>
                     <div className={styles.buttonBox}>
                         {userData &&
                             <button
@@ -58,7 +59,7 @@ const UnchartedChallenge = () => {
                         }
                     </div>
                     <h2 className="mt-8" >今月のチャレンジ</h2>
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg" key={unchartedChallenge?.id}>
+                    <div className="mt-4 bg-white overflow-hidden shadow-sm rounded-lg" key={unchartedChallenge?.id}>
                         {/* ダイナミックルートへのリンクを設定 */}
                         <Link href={`/groupChats/${unchartedChallenge?.uuid}`}>
                             <h2 className="p-6 text-2xl bg-white border-b border-gray-200">
@@ -66,6 +67,33 @@ const UnchartedChallenge = () => {
                             </h2>
                         </Link>
                     </div>
+                    <p className='mt-4'>メンバー:</p>
+                    <div className={styles.iconContainer}>
+                        {
+                            unchartedChallenge && unchartedChallenge.users.map(user => (
+                                <>
+                                    {userData?.id === user.id ?
+                                        <Link href={'/profile'}>
+                                            <Image
+                                                src={user.icon_path}
+                                                alt={user.name}
+                                                style={styles.icon}
+                                            />
+                                        </Link >
+                                        :
+                                        <Link href={`/profile/${user.id}`}>
+                                            <Image
+                                                src={user.icon_path}
+                                                alt={user.name}
+                                                style={styles.icon}
+                                            />
+                                        </Link>
+                                    }
+                                </>
+                            ))
+                        }
+                    </div>
+
                 </div>
             </div>
             <FooterTabBar user={userData} />
