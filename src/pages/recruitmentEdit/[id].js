@@ -54,7 +54,7 @@ const RecruitmentEdit = () => {
     })
 
 
-    console.log(recruitmentForm)
+    // console.log(recruitmentForm)
 
 
     useEffect(() => {
@@ -137,13 +137,13 @@ const RecruitmentEdit = () => {
             data.append(`tags[${index}]`, tag.id);
         });
 
-        console.log("Sending Images Data:", recruitmentForm.images);
+        // console.log("Sending Images Data:", recruitmentForm.images);
 
         try {
             const response = await axios.post(`/api/recruitments/${id}`, data, {
                 headers: { 'content-type': 'multipart/form-data' },
             })
-            console.log(response.status)
+            // console.log(response.status)
             if (response.status === 200) {
                 router.back();
             } else {
