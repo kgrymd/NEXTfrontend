@@ -16,7 +16,6 @@ const Participants = ({ userData, recruitment }) => {
                         alt={recruitment.user.name}
                         style={styles.icon}
                     />
-                    {/* <span className='text-xs'>{recruitment.user.name}</span> */}
                     <span className='text-xs'>作成者</span>
                 </Link >
                 :
@@ -26,7 +25,6 @@ const Participants = ({ userData, recruitment }) => {
                         alt={recruitment.user.name}
                         style={styles.icon}
                     />
-                    {/* <span className='text-xs'>{recruitment.user.name}</span> */}
                     <span className='text-xs'>作成者</span>
                 </Link>
             }
