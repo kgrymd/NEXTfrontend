@@ -37,7 +37,7 @@ const UnchartedChallenge = () => {
         }
     }
 
-    console.log(userData)
+    // console.log(userData)
 
 
     return (
