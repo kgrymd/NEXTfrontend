@@ -52,7 +52,7 @@ export default function RecruitmentList() {
     )
 
 
-    console.log(recruitments);
+    // console.log(recruitments);
 
 
     return (
