@@ -48,7 +48,7 @@ const RecruitmentCreation = () => {
     })
 
 
-    console.log(recruitmentForm)
+    // console.log(recruitmentForm)
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -102,7 +102,7 @@ const RecruitmentCreation = () => {
             const response = await axios.post('/api/recruitments', data, {
                 headers: { 'content-type': 'multipart/form-data' },
             })
-            console.log(response.status)
+            // console.log(response.status)
             if (response.status === 200) {
                 window.location.href = '/recruitments'
             } else {
