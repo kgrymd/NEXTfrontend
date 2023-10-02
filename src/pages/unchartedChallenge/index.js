@@ -37,7 +37,7 @@ const UnchartedChallenge = () => {
         }
     }
 
-    console.log(userData)
+    // console.log(userData)
 
 
     return (
@@ -70,8 +70,8 @@ const UnchartedChallenge = () => {
                     <p className='mt-4'>メンバー:</p>
                     <div className={styles.iconContainer}>
                         {
-                            unchartedChallenge && unchartedChallenge.users.map(user => (
-                                <>
+                            unchartedChallenge && unchartedChallenge.users.map((user, index) => (
+                                <div key={index}>
                                     {userData?.id === user.id ?
                                         <Link href={'/profile'}>
                                             <Image
@@ -89,7 +89,7 @@ const UnchartedChallenge = () => {
                                             />
                                         </Link>
                                     }
-                                </>
+                                </div>
                             ))
                         }
                     </div>
