@@ -10,7 +10,6 @@ const RecruitmentEditImage = ({ index, src, onDelete }) => {
             {/* 画像index */}
             <div className={styles.index}>{index + 1}</div>
             {/* 画像 */}
-            {/* <img src={src} className={styles.img} /> */}
             <img
                 src={
                     typeof src === "string" && !src.startsWith("blob:")
