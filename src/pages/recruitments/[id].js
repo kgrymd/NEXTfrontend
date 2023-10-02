@@ -45,8 +45,8 @@ const RecruitmentShow = () => {
 
 
 
-    console.log(recruitment)
-    console.log('selectedRecruitment', selectedRecruitment)
+    // console.log(recruitment)
+    // console.log('selectedRecruitment', selectedRecruitment)
 
 
     return (
