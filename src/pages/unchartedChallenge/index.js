@@ -70,7 +70,7 @@ const UnchartedChallenge = () => {
                     <p className='mt-4'>メンバー:</p>
                     <div className={styles.iconContainer}>
                         {
-                            unchartedChallenge && unchartedChallenge.users.map((user, index) => (
+                            unchartedChallenge && unchartedChallenge.users?.map((user, index) => (
                                 <div key={index}>
                                     {userData?.id === user.id ?
                                         <Link href={'/profile'}>
