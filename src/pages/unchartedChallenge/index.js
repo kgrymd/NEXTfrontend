@@ -29,11 +29,11 @@ const UnchartedChallenge = () => {
             const response = await axios.post('/api/my/unchartedChallenge');
 
             if (response.data.success) {
-                console.log("参加成功!");
+                console.log("成功!");
             }
             mutate()
         } catch (error) {
-            console.error("参加失敗:", error);
+            console.error("失敗!:", error);
         }
     }
 
