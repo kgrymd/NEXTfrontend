@@ -42,7 +42,7 @@ const UnchartedChallenge = () => {
 
     return (
         <Layout>
-            <Header headerTitle={'UnchartedChallenge'} />
+            <Header headerTitle={'UnchartedChallenge'} user={userData} />
             <div className="py-12">
                 <div className={styles.contentContainer}>
                     <h2>やったことのないことに挑戦しよう！</h2>

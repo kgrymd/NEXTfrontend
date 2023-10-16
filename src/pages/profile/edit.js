@@ -152,7 +152,7 @@ const Edit = () => {
 
     return (
         <Layout>
-            <Header backRoute={'/profile'} headerTitle="プロフィール編集">
+            <Header backRoute={'/profile'} headerTitle="プロフィール編集" user={userData}>
                 <Head>
                     <title>Profile Edit</title>
                 </Head>
