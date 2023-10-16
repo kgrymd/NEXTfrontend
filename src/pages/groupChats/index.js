@@ -23,7 +23,7 @@ function GroupChats() {
 
     return (
         <Layout>
-            <Header headerTitle={'GroupChats'} />
+            <Header headerTitle={'GroupChats'} user={userData} />
             <Head>
                 <title>GroupChats</title>
             </Head>

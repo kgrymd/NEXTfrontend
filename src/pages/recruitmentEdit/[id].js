@@ -192,7 +192,7 @@ const RecruitmentEdit = () => {
                     <img src="/loading.gif" alt="Loading..." />
                 </div>
             )}
-            <Header headerTitle="募集編集" />
+            <Header headerTitle="募集編集" user={user} />
 
             <div className={styles.container}>
                 <div className={styles.content}>

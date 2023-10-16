@@ -3,14 +3,14 @@ import { useRouter } from 'next/router'
 
 import styles from '@/styles/components/Header.module.css'
 
-const Header = ({ children, backRoute, headerTitle, chat }) => {
+const Header = ({ children, backRoute, headerTitle, chat, user }) => {
 
     const router = useRouter()
     return (
         <>
             <div className={styles.header}>
                 <div className="flex justify-center h-16 items-center ml-4 w-12">
-                    <svg
+                    {user && <svg
                         onClick={() => {
                             backRoute ? router.push(backRoute) : router.back()
                         }}
@@ -26,7 +26,7 @@ const Header = ({ children, backRoute, headerTitle, chat }) => {
                             strokeLinejoin="round"
                             d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
                         />
-                    </svg>
+                    </svg>}
                     <div className={styles.titleContainer}>
                         <h1 className="text-2xl text-white font-bold">
                             {/* もしグループチャットでheaderTitle(募集のタイトル)が10文字より長い場合に、その最初の6文字と「...」を表示する */}

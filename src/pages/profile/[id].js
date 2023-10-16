@@ -32,7 +32,7 @@ const Profile = () => {
 
     return (
         <Layout>
-            <Header />
+            <Header user={userData} />
             <Head>
                 <title>Recruitments Page</title>
             </Head>

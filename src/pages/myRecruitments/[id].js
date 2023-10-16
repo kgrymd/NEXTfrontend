@@ -53,7 +53,7 @@ const RecruitmentShow = () => {
 
     return (
         <Layout>
-            <Header />
+            <Header user={userData} />
             <Head>
                 <title>Created recruitment</title>
             </Head>

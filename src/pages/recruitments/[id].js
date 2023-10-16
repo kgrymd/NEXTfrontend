@@ -51,7 +51,7 @@ const RecruitmentShow = () => {
 
     return (
         <Layout>
-            <Header />
+            <Header user={userData} />
             <Head>
                 <title>{recruitment && recruitment.title} - NEXT</title>
 

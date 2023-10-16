@@ -51,7 +51,7 @@ export default function RecruitmentList() {
 
     return (
         <Layout>
-            <Header headerTitle={'募集検索'} />
+            <Header headerTitle={'募集検索'} user={userData} />
             <Head>
                 <title>Search Page</title>
             </Head>
