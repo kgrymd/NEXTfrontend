@@ -23,7 +23,7 @@ function GroupChats() {
 
     return (
         <Layout>
-            <Header headerTitle={'UnchartedChallenges'} />
+            <Header headerTitle={'UnchartedChallenges'} user={userData} />
             <Head>
                 <title>UnchartedChallenge - NEXT</title>
             </Head>

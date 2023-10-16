@@ -141,7 +141,7 @@ const RecruitmentCreation = () => {
 
     return (
         <Layout>
-            <Header headerTitle="募集作成" />
+            <Header headerTitle="募集作成" user={userData} />
             <Head>
                 <title>Recruitment creation page</title>
             </Head>
